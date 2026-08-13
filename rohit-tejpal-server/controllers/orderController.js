@@ -40,6 +40,7 @@ export const addOrderItems = async (req, res) => {
 
       res.status(201).json(createdOrder);
     } catch (error) {
+      console.error("Order Creation Error: ", error);
       res.status(500).json({ message: error.message });
     }
   }

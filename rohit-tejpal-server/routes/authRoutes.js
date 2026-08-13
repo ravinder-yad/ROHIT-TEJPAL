@@ -7,11 +7,9 @@ import {
   resetPassword,
   loginAdmin,
   registerAdmin,
+  verifyAdminOTP,
   logout,
-  forgotPasswordAdmin,
-  resetPasswordAdmin,
-  updateAdminProfile,
-  updateAdminPassword
+  updateAdminProfile
 } from '../controllers/authController.js';
 import { protect, adminAuth } from '../middleware/authMiddleware.js';
 import upload from '../middleware/multer.js';
@@ -28,8 +26,8 @@ router.post('/reset-password', resetPassword);
 // Admin Auth
 router.post('/admin/register', registerAdmin);
 router.post('/admin/login', loginAdmin);
-router.post('/admin/forgot-password', forgotPasswordAdmin);
-router.post('/admin/reset-password/:token', resetPasswordAdmin);
+router.post('/admin/verify-otp', verifyAdminOTP);
+
 router.put('/admin/profile', protect, adminAuth, (req, res, next) => {
   upload.single('avatar')(req, res, (err) => {
     if (err) {
@@ -39,7 +37,6 @@ router.put('/admin/profile', protect, adminAuth, (req, res, next) => {
     next();
   });
 }, updateAdminProfile);
-router.put('/admin/password', protect, adminAuth, updateAdminPassword);
 
 // General Logout
 router.post('/logout', logout);

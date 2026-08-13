@@ -216,70 +216,128 @@ const resetPassword = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
-
-// @desc    Auth admin & get token
+// @desc    Auth admin & get token (Login Phase 1 - Send OTP)
 // @route   POST /api/auth/admin/login
 // @access  Public
 const loginAdmin = async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { email } = req.body;
 
     const admin = await Admin.findOne({ email });
 
     if (!admin) {
-      return res.status(401).json({ message: 'Invalid admin credentials' });
+      return res.status(401).json({ message: 'Invalid admin email' });
     }
 
     if (!admin.isActive) {
       return res.status(401).json({ message: 'Admin account is deactivated' });
     }
 
-    if (await admin.matchPassword(password)) {
-      generateToken(res, admin._id, 'admin');
-      res.json({
-        _id: admin._id,
-        name: admin.name,
-        email: admin.email,
-        role: 'admin'
-      });
+    const otp = generateOTP();
+    admin.otp = otp;
+    admin.otpExpires = new Date(Date.now() + 5 * 60 * 1000); // 5 mins
+    await admin.save();
+
+    const emailSent = await sendEmail({
+      email: admin.email,
+      subject: 'Admin Login OTP for Rohit Tejpal',
+      html: `
+        <h1>Admin Login Verification</h1>
+        <p>Hello ${admin.name},</p>
+        <p>Your OTP for admin login is: <strong>${otp}</strong></p>
+        <p>This OTP will expire in 5 minutes.</p>
+      `,
+    });
+
+    if (emailSent) {
+      res.status(200).json({ message: 'OTP sent to email', email: admin.email });
     } else {
-      res.status(401).json({ message: 'Invalid admin credentials' });
+      res.status(500).json({ message: 'Failed to send OTP email' });
     }
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
 
-// @desc    Register a new Admin (One-time setup)
+// @desc    Register a new Admin (One-time setup - Phase 1 Send OTP)
 // @route   POST /api/auth/admin/register
 // @access  Public
 const registerAdmin = async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    const { name, email } = req.body;
 
-    // Optional: Add logic to allow only 1 admin, or a specific email, or disable public registration later
     const adminExists = await Admin.findOne({ email });
     if (adminExists) {
       return res.status(400).json({ message: 'Admin already exists' });
     }
 
+    // Temporarily create admin but they still need to verify OTP to login later.
+    // Or we can just create them and send OTP so they can immediately verify.
     const admin = await Admin.create({
       name,
       email,
-      password,
-      isActive: true, // Default active
+      isActive: true,
     });
 
-    if (admin) {
-      res.status(201).json({
-        _id: admin._id,
-        name: admin.name,
-        email: admin.email,
-        role: 'admin'
-      });
+    const otp = generateOTP();
+    admin.otp = otp;
+    admin.otpExpires = new Date(Date.now() + 5 * 60 * 1000);
+    await admin.save();
+
+    const emailSent = await sendEmail({
+      email: admin.email,
+      subject: 'Admin Account Created - Verify OTP',
+      html: `
+        <h1>Admin Setup Verification</h1>
+        <p>Hello ${admin.name},</p>
+        <p>Your OTP for admin verification is: <strong>${otp}</strong></p>
+        <p>This OTP will expire in 5 minutes.</p>
+      `,
+    });
+
+    if (emailSent) {
+      res.status(200).json({ message: 'OTP sent to email', email: admin.email });
     } else {
-      res.status(400).json({ message: 'Invalid admin data' });
+      res.status(500).json({ message: 'Failed to send OTP email' });
     }
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// @desc    Verify OTP for Admin Login/Register
+// @route   POST /api/auth/admin/verify-otp
+// @access  Public
+const verifyAdminOTP = async (req, res) => {
+  try {
+    const { email, otp } = req.body;
+
+    const admin = await Admin.findOne({ email });
+    if (!admin) {
+      return res.status(404).json({ message: 'Admin not found' });
+    }
+
+    if (admin.otp !== otp) {
+      return res.status(400).json({ message: 'Invalid OTP' });
+    }
+
+    if (admin.otpExpires < new Date()) {
+      return res.status(400).json({ message: 'OTP has expired' });
+    }
+
+    // Verify admin and clear OTP
+    admin.otp = null;
+    admin.otpExpires = null;
+    await admin.save();
+
+    generateToken(res, admin._id, 'admin');
+    res.json({
+      _id: admin._id,
+      name: admin.name,
+      email: admin.email,
+      avatar: admin.avatar,
+      role: 'admin',
+    });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -298,78 +356,6 @@ const logout = (req, res) => {
   res.status(200).json({ message: 'Logged out successfully' });
 };
 
-// @desc    Forgot Password for Admin
-// @route   POST /api/auth/admin/forgot-password
-// @access  Public
-const forgotPasswordAdmin = async (req, res) => {
-  try {
-    const { email } = req.body;
-    const admin = await Admin.findOne({ email });
-
-    if (!admin) {
-      return res.status(404).json({ message: 'No admin found with that email' });
-    }
-
-    // Generate token
-    const resetToken = crypto.randomBytes(20).toString('hex');
-
-    // Hash token and set to resetPasswordToken field
-    admin.resetPasswordToken = crypto
-      .createHash('sha256')
-      .update(resetToken)
-      .digest('hex');
-
-    // Set expire (10 minutes)
-    admin.resetPasswordExpire = Date.now() + 10 * 60 * 1000;
-
-    await admin.save();
-
-    // In a real app, send email here. For now, we will return the token in response
-    // so the frontend can simulate the email flow or we can log it.
-    console.log(`Reset link: http://localhost:5174/admin/reset-password/${resetToken}`);
-
-    res.status(200).json({ 
-      message: 'Password reset token generated. Check console for the link.',
-      resetToken // Sending it back just so the frontend can mock it for now. Remove in prod.
-    });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-};
-
-// @desc    Reset Password for Admin
-// @route   POST /api/auth/admin/reset-password/:token
-// @access  Public
-const resetPasswordAdmin = async (req, res) => {
-  try {
-    // Get hashed token
-    const resetPasswordToken = crypto
-      .createHash('sha256')
-      .update(req.params.token)
-      .digest('hex');
-
-    const admin = await Admin.findOne({
-      resetPasswordToken,
-      resetPasswordExpire: { $gt: Date.now() },
-    });
-
-    if (!admin) {
-      return res.status(400).json({ message: 'Invalid or expired token' });
-    }
-
-    // Set new password
-    admin.password = req.body.password;
-    admin.resetPasswordToken = undefined;
-    admin.resetPasswordExpire = undefined;
-
-    await admin.save();
-
-    res.status(200).json({ message: 'Password updated successfully' });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-};
-
 // @desc    Update admin profile
 // @route   PUT /api/auth/admin/profile
 // @access  Private/Admin
@@ -381,9 +367,7 @@ const updateAdminProfile = async (req, res) => {
       admin.name = req.body.name || admin.name;
       admin.email = req.body.email || admin.email;
 
-      // Handle avatar upload if present
       if (req.file) {
-        // Upload stream to cloudinary
         const uploadResult = await new Promise((resolve, reject) => {
           const stream = cloudinary.uploader.upload_stream(
             { folder: "rohit_tejpal/admin" },
@@ -415,41 +399,6 @@ const updateAdminProfile = async (req, res) => {
   }
 };
 
-// @desc    Update admin password
-// @route   PUT /api/auth/admin/password
-// @access  Private/Admin
-const updateAdminPassword = async (req, res) => {
-  try {
-    const admin = await Admin.findById(req.admin._id);
-
-    if (admin) {
-      const { currentPassword, newPassword } = req.body;
-
-      if (!currentPassword || !newPassword) {
-        return res.status(400).json({ message: 'Please provide current and new passwords' });
-      }
-
-      // Verify current password
-      const isMatch = await admin.matchPassword(currentPassword);
-      if (!isMatch) {
-        return res.status(400).json({ message: 'Current password is incorrect' });
-      }
-
-      // Set new password (will be hashed by pre-save middleware)
-      admin.password = newPassword;
-      await admin.save();
-
-      res.json({ message: 'Password updated successfully' });
-    } else {
-      res.status(404).json({ message: 'Admin not found' });
-    }
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-};
-
-
-
 export { 
   registerUser, 
   loginUser, 
@@ -458,9 +407,7 @@ export {
   resetPassword,
   loginAdmin, 
   registerAdmin, 
+  verifyAdminOTP,
   logout,
-  forgotPasswordAdmin,
-  resetPasswordAdmin,
-  updateAdminProfile,
-  updateAdminPassword
+  updateAdminProfile
 };
