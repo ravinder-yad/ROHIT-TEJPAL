@@ -1,0 +1,466 @@
+import User from '../models/User.js';
+import Admin from '../models/Admin.js';
+import generateToken from '../utils/generateToken.js';
+import crypto from 'crypto';
+import cloudinary from '../config/cloudinary.js';
+import sendEmail from '../utils/sendEmail.js';
+
+// Helper to generate 6 digit OTP
+const generateOTP = () => {
+  return crypto.randomInt(100000, 999999).toString();
+};
+
+// @desc    Register a new customer & send OTP
+// @route   POST /api/auth/register
+// @access  Public
+const registerUser = async (req, res) => {
+  try {
+    const { name, email, password, phone } = req.body;
+
+    let user = await User.findOne({ email });
+    if (user && user.isVerified) {
+      return res.status(400).json({ message: 'User already exists and is verified' });
+    }
+
+    const otp = generateOTP();
+    const otpExpires = new Date(Date.now() + 5 * 60 * 1000); // 5 minutes
+
+    if (user) {
+      // User exists but unverified, update their details
+      user.name = name;
+      user.password = password;
+      user.phone = phone;
+      user.otp = otp;
+      user.otpExpires = otpExpires;
+      await user.save();
+    } else {
+      user = await User.create({
+        name,
+        email,
+        password,
+        phone,
+        otp,
+        otpExpires,
+      });
+    }
+    
+    // Send OTP via Email
+    const emailSent = await sendEmail({
+      email: user.email,
+      subject: 'Verify your Rohit Tejpal Account',
+      html: `
+        <h1>Account Verification</h1>
+        <p>Hello ${user.name},</p>
+        <p>Your OTP for account verification is: <strong>${otp}</strong></p>
+        <p>This OTP will expire in 5 minutes.</p>
+      `,
+    });
+
+    if (emailSent) {
+      res.status(200).json({ message: 'OTP sent to email', email: user.email });
+    } else {
+      res.status(500).json({ message: 'Failed to send OTP email' });
+    }
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// @desc    Auth customer & get token (Login Phase 1 - Send OTP)
+// @route   POST /api/auth/login
+// @access  Public
+const loginUser = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    const user = await User.findOne({ email });
+
+    if (user && (await user.matchPassword(password))) {
+      if (!user.isVerified) {
+        return res.status(401).json({ message: 'Please verify your account first.' });
+      }
+
+      const otp = generateOTP();
+      user.otp = otp;
+      user.otpExpires = new Date(Date.now() + 5 * 60 * 1000);
+      await user.save();
+
+      const emailSent = await sendEmail({
+        email: user.email,
+        subject: 'Login OTP for Rohit Tejpal',
+        html: `
+          <h1>Login Verification</h1>
+          <p>Hello ${user.name},</p>
+          <p>Your OTP for login is: <strong>${otp}</strong></p>
+          <p>This OTP will expire in 5 minutes.</p>
+        `,
+      });
+
+      if (emailSent) {
+        res.status(200).json({ message: 'OTP sent to email', email: user.email });
+      } else {
+        res.status(500).json({ message: 'Failed to send OTP email' });
+      }
+    } else {
+      res.status(401).json({ message: 'Invalid email or password' });
+    }
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// @desc    Verify OTP for Login/Register
+// @route   POST /api/auth/verify-otp
+// @access  Public
+const verifyOTP = async (req, res) => {
+  try {
+    const { email, otp } = req.body;
+
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    if (user.otp !== otp) {
+      return res.status(400).json({ message: 'Invalid OTP' });
+    }
+
+    if (user.otpExpires < new Date()) {
+      return res.status(400).json({ message: 'OTP has expired' });
+    }
+
+    // Verify user and clear OTP
+    user.isVerified = true;
+    user.otp = null;
+    user.otpExpires = null;
+    await user.save();
+
+    generateToken(res, user._id, 'user');
+    res.json({
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      phone: user.phone,
+      role: user.role,
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// @desc    Forgot Password - Send OTP
+// @route   POST /api/auth/forgot-password
+// @access  Public
+const forgotPassword = async (req, res) => {
+  try {
+    const { email } = req.body;
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(404).json({ message: 'No account with that email exists' });
+    }
+
+    const otp = generateOTP();
+    user.otp = otp;
+    user.otpExpires = new Date(Date.now() + 5 * 60 * 1000);
+    await user.save();
+
+    const emailSent = await sendEmail({
+      email: user.email,
+      subject: 'Password Reset OTP',
+      html: `
+        <h1>Reset Password</h1>
+        <p>Hello ${user.name},</p>
+        <p>Your OTP to reset your password is: <strong>${otp}</strong></p>
+        <p>This OTP will expire in 5 minutes.</p>
+      `,
+    });
+
+    if (emailSent) {
+      res.status(200).json({ message: 'OTP sent to email', email: user.email });
+    } else {
+      res.status(500).json({ message: 'Failed to send OTP email' });
+    }
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// @desc    Reset Password with OTP
+// @route   POST /api/auth/reset-password
+// @access  Public
+const resetPassword = async (req, res) => {
+  try {
+    const { email, otp, newPassword } = req.body;
+
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    if (user.otp !== otp) {
+      return res.status(400).json({ message: 'Invalid OTP' });
+    }
+
+    if (user.otpExpires < new Date()) {
+      return res.status(400).json({ message: 'OTP has expired' });
+    }
+
+    user.password = newPassword;
+    user.otp = null;
+    user.otpExpires = null;
+    await user.save();
+
+    res.status(200).json({ message: 'Password updated successfully' });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// @desc    Auth admin & get token
+// @route   POST /api/auth/admin/login
+// @access  Public
+const loginAdmin = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    const admin = await Admin.findOne({ email });
+
+    if (!admin) {
+      return res.status(401).json({ message: 'Invalid admin credentials' });
+    }
+
+    if (!admin.isActive) {
+      return res.status(401).json({ message: 'Admin account is deactivated' });
+    }
+
+    if (await admin.matchPassword(password)) {
+      generateToken(res, admin._id, 'admin');
+      res.json({
+        _id: admin._id,
+        name: admin.name,
+        email: admin.email,
+        role: 'admin'
+      });
+    } else {
+      res.status(401).json({ message: 'Invalid admin credentials' });
+    }
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// @desc    Register a new Admin (One-time setup)
+// @route   POST /api/auth/admin/register
+// @access  Public
+const registerAdmin = async (req, res) => {
+  try {
+    const { name, email, password } = req.body;
+
+    // Optional: Add logic to allow only 1 admin, or a specific email, or disable public registration later
+    const adminExists = await Admin.findOne({ email });
+    if (adminExists) {
+      return res.status(400).json({ message: 'Admin already exists' });
+    }
+
+    const admin = await Admin.create({
+      name,
+      email,
+      password,
+      isActive: true, // Default active
+    });
+
+    if (admin) {
+      res.status(201).json({
+        _id: admin._id,
+        name: admin.name,
+        email: admin.email,
+        role: 'admin'
+      });
+    } else {
+      res.status(400).json({ message: 'Invalid admin data' });
+    }
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// @desc    Logout user/admin / clear cookie
+// @route   POST /api/auth/logout
+// @access  Public
+const logout = (req, res) => {
+  res.cookie('jwt', '', {
+    httpOnly: true,
+    secure: true,
+    sameSite: 'none',
+    expires: new Date(0),
+  });
+  res.status(200).json({ message: 'Logged out successfully' });
+};
+
+// @desc    Forgot Password for Admin
+// @route   POST /api/auth/admin/forgot-password
+// @access  Public
+const forgotPasswordAdmin = async (req, res) => {
+  try {
+    const { email } = req.body;
+    const admin = await Admin.findOne({ email });
+
+    if (!admin) {
+      return res.status(404).json({ message: 'No admin found with that email' });
+    }
+
+    // Generate token
+    const resetToken = crypto.randomBytes(20).toString('hex');
+
+    // Hash token and set to resetPasswordToken field
+    admin.resetPasswordToken = crypto
+      .createHash('sha256')
+      .update(resetToken)
+      .digest('hex');
+
+    // Set expire (10 minutes)
+    admin.resetPasswordExpire = Date.now() + 10 * 60 * 1000;
+
+    await admin.save();
+
+    // In a real app, send email here. For now, we will return the token in response
+    // so the frontend can simulate the email flow or we can log it.
+    console.log(`Reset link: http://localhost:5174/admin/reset-password/${resetToken}`);
+
+    res.status(200).json({ 
+      message: 'Password reset token generated. Check console for the link.',
+      resetToken // Sending it back just so the frontend can mock it for now. Remove in prod.
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// @desc    Reset Password for Admin
+// @route   POST /api/auth/admin/reset-password/:token
+// @access  Public
+const resetPasswordAdmin = async (req, res) => {
+  try {
+    // Get hashed token
+    const resetPasswordToken = crypto
+      .createHash('sha256')
+      .update(req.params.token)
+      .digest('hex');
+
+    const admin = await Admin.findOne({
+      resetPasswordToken,
+      resetPasswordExpire: { $gt: Date.now() },
+    });
+
+    if (!admin) {
+      return res.status(400).json({ message: 'Invalid or expired token' });
+    }
+
+    // Set new password
+    admin.password = req.body.password;
+    admin.resetPasswordToken = undefined;
+    admin.resetPasswordExpire = undefined;
+
+    await admin.save();
+
+    res.status(200).json({ message: 'Password updated successfully' });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// @desc    Update admin profile
+// @route   PUT /api/auth/admin/profile
+// @access  Private/Admin
+const updateAdminProfile = async (req, res) => {
+  try {
+    const admin = await Admin.findById(req.admin._id);
+
+    if (admin) {
+      admin.name = req.body.name || admin.name;
+      admin.email = req.body.email || admin.email;
+
+      // Handle avatar upload if present
+      if (req.file) {
+        // Upload stream to cloudinary
+        const uploadResult = await new Promise((resolve, reject) => {
+          const stream = cloudinary.uploader.upload_stream(
+            { folder: "rohit_tejpal/admin" },
+            (error, result) => {
+              if (error) return reject(error);
+              resolve(result);
+            }
+          );
+          stream.end(req.file.buffer);
+        });
+        admin.avatar = uploadResult.secure_url;
+      }
+
+      const updatedAdmin = await admin.save();
+
+      res.json({
+        _id: updatedAdmin._id,
+        name: updatedAdmin.name,
+        email: updatedAdmin.email,
+        avatar: updatedAdmin.avatar,
+        role: 'admin',
+      });
+    } else {
+      res.status(404).json({ message: 'Admin not found' });
+    }
+  } catch (error) {
+    console.error('Update Profile Error:', error);
+    res.status(500).json({ message: error.message, stack: error.stack });
+  }
+};
+
+// @desc    Update admin password
+// @route   PUT /api/auth/admin/password
+// @access  Private/Admin
+const updateAdminPassword = async (req, res) => {
+  try {
+    const admin = await Admin.findById(req.admin._id);
+
+    if (admin) {
+      const { currentPassword, newPassword } = req.body;
+
+      if (!currentPassword || !newPassword) {
+        return res.status(400).json({ message: 'Please provide current and new passwords' });
+      }
+
+      // Verify current password
+      const isMatch = await admin.matchPassword(currentPassword);
+      if (!isMatch) {
+        return res.status(400).json({ message: 'Current password is incorrect' });
+      }
+
+      // Set new password (will be hashed by pre-save middleware)
+      admin.password = newPassword;
+      await admin.save();
+
+      res.json({ message: 'Password updated successfully' });
+    } else {
+      res.status(404).json({ message: 'Admin not found' });
+    }
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+
+
+export { 
+  registerUser, 
+  loginUser, 
+  verifyOTP,
+  forgotPassword,
+  resetPassword,
+  loginAdmin, 
+  registerAdmin, 
+  logout,
+  forgotPasswordAdmin,
+  resetPasswordAdmin,
+  updateAdminProfile,
+  updateAdminPassword
+};
