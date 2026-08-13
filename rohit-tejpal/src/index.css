@@ -1,0 +1,29 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary-dark: #2A3245;
+  --color-deep-navy: #2A3245;
+  --color-ivory: #F7F3EA;
+  --color-warm-beige: #E8DED0;
+  --color-burgundy: #6F3037;
+  --color-muted-sage: #9BA394;
+  --color-gold: #B69A61;
+  --color-border: #E5E0D6;
+  --color-whatsapp: #16A34A;
+}
+
+@layer base {
+  body {
+    @apply bg-[var(--color-ivory)] text-[#1D2735] antialiased;
+  }
+}
+
+@layer utilities {
+  .section-padding {
+    @apply py-[56px] px-[18px] md:py-[72px] md:px-[24px] lg:py-[100px] lg:px-[32px];
+  }
+  
+  .container-max {
+    @apply w-full mx-auto;
+  }
+}
