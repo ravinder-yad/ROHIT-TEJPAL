@@ -9,12 +9,15 @@ import {
   getCart,
   syncCart,
   getWishlist,
-  syncWishlist
+  syncWishlist,
+  getUsers
 } from '../controllers/userController.js';
-import { protect } from '../middleware/authMiddleware.js';
+import { protect, adminAuth } from '../middleware/authMiddleware.js';
 import upload from '../middleware/multer.js';
 
 const router = express.Router();
+
+router.get('/', protect, adminAuth, getUsers);
 
 router.put('/profile', protect, upload.single('profileImage'), updateUserProfile);
 router.put('/password', protect, updateUserPassword);
