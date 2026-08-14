@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { FiCheckCircle, FiChevronRight } from 'react-icons/fi';
+import { FiCheckCircle, FiChevronRight, FiDownload } from 'react-icons/fi';
 import axios from 'axios';
+import { useAuth } from '../context/AuthContext';
+import { downloadOrderReceipt } from '../utils/pdfGenerator';
 
 const CheckoutSuccess = () => {
   const { orderId } = useParams();
   const [order, setOrder] = useState(null);
+  const { user } = useAuth();
 
   useEffect(() => {
     const fetchOrder = async () => {
@@ -53,7 +56,15 @@ const CheckoutSuccess = () => {
         </div>
         
         <div className="flex flex-col gap-3">
-          <Link to="/dashboard/orders" className="w-full py-3.5 bg-[var(--color-primary-dark)] text-white text-sm font-bold uppercase tracking-widest rounded flex items-center justify-center gap-2 hover:bg-[var(--color-gold)] transition-colors">
+          {order && (
+            <button 
+              onClick={() => downloadOrderReceipt(order, user)}
+              className="w-full py-3.5 bg-green-600 text-white text-sm font-bold uppercase tracking-widest rounded flex items-center justify-center gap-2 hover:bg-green-700 transition-colors"
+            >
+              <FiDownload /> Download Receipt (PDF)
+            </button>
+          )}
+          <Link to="/dashboard/orders" className="w-full py-3.5 bg-[var(--color-primary-dark)] text-white text-sm font-bold uppercase tracking-widest rounded flex items-center justify-center gap-2 hover:bg-[var(--color-gold)] transition-colors mt-2">
             View Order <FiChevronRight />
           </Link>
           <Link to="/products" className="w-full py-3.5 bg-white text-[var(--color-primary-dark)] border border-gray-200 text-sm font-bold uppercase tracking-widest rounded hover:bg-gray-50 transition-colors">

@@ -9,6 +9,7 @@ import BrandLogoImage from '../components/ui/BrandLogoImage';
 import SettingsContent from './dashboard/SettingsContent';
 import DashboardCartContent from './dashboard/DashboardCartContent';
 import DashboardWishlistContent from './dashboard/DashboardWishlistContent';
+import { downloadOrderReceipt } from '../utils/pdfGenerator';
 
 const Dashboard = () => {
   const { user, logout } = useAuth();
@@ -382,6 +383,14 @@ const OrdersContent = () => {
                       {order.isPaid ? '✓ PAID' : '✗ UNPAID'}
                     </span>
                   </div>
+                </div>
+                <div className="flex justify-end flex-col items-end h-full">
+                  <button 
+                    onClick={() => downloadOrderReceipt(order)}
+                    className="mt-4 md:mt-0 text-[10px] font-bold uppercase tracking-widest bg-[var(--color-primary-dark)] text-white px-4 py-2 rounded hover:bg-[var(--color-gold)] transition-colors"
+                  >
+                    Download Receipt
+                  </button>
                 </div>
               </div>
               
