@@ -7,7 +7,7 @@ const Cart = () => {
   const { cartItems, updateQuantity, removeFromCart, cartTotal } = useCart();
 
   const subtotal = cartTotal;
-  const shipping = subtotal > 0 ? 500 : 0; // Flat 500 shipping if not empty
+  const shipping = subtotal > 0 ? 0 : 0; // FREE Delivery
   const total = subtotal + shipping;
 
   const handleCheckout = () => {

@@ -10,7 +10,7 @@ const DashboardCartContent = () => {
   const { cartItems, updateQuantity, removeFromCart, cartTotal, clearCart } = useCart();
 
   const subtotal = cartTotal;
-  const shipping = subtotal > 0 ? 500 : 0;
+  const shipping = subtotal > 0 ? 0 : 0; // FREE Delivery
   const total = subtotal + shipping;
 
   const handleCheckout = () => {
