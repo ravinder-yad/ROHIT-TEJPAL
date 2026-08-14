@@ -1,0 +1,10 @@
+{
+  "buildCommand": "cd rohit-tejpal && npm install && npm run build",
+  "outputDirectory": "rohit-tejpal/dist",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}

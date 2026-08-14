@@ -1,0 +1,7 @@
+{
+  "name": "rohit-tejpal-root",
+  "private": true,
+  "scripts": {
+    "build": "cd rohit-tejpal && npm install && npm run build"
+  }
+}
