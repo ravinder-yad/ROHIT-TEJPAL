@@ -19,6 +19,14 @@ const ProductDetails = () => {
   const { addToCart } = useCart();
   const { toggleWishlist, isInWishlist } = useWishlist();
 
+  const handleAddToCart = () => {
+    if (product?.sizes?.length > 0 && !selectedSize) {
+      alert('Please select a size first.');
+      return;
+    }
+    addToCart(product, selectedSize, 1);
+  };
+
   useEffect(() => {
     const fetchProduct = async () => {
       try {
