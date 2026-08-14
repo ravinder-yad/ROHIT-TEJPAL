@@ -16,11 +16,25 @@ export const AuthProvider = ({ children }) => {
 
   // Check if user is logged in on mount
   useEffect(() => {
-    const userInfo = localStorage.getItem('userInfo');
-    if (userInfo) {
-      setUser(JSON.parse(userInfo));
-    }
-    setLoading(false);
+    const fetchUser = async () => {
+      const userInfoStr = localStorage.getItem('userInfo');
+      if (userInfoStr) {
+        const userInfo = JSON.parse(userInfoStr);
+        setUser(userInfo); // Set local state immediately for fast render
+        
+        try {
+          // Fetch latest data from DB to stay in sync
+          const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/users/profile`);
+          setUser(res.data);
+          localStorage.setItem('userInfo', JSON.stringify(res.data));
+        } catch (error) {
+          console.error("Failed to sync user profile", error);
+        }
+      }
+      setLoading(false);
+    };
+
+    fetchUser();
   }, []);
 
   const login = async (email, password) => {
