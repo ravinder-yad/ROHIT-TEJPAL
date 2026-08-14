@@ -1,5 +1,5 @@
 import { jsPDF } from 'jspdf';
-import 'jspdf-autotable';
+import autoTable from 'jspdf-autotable';
 
 export const downloadOrderReceipt = (order, userDetails = null) => {
   // Create a new PDF document
@@ -60,7 +60,7 @@ export const downloadOrderReceipt = (order, userDetails = null) => {
     `Rs. ${(item.price * (item.qty || item.quantity)).toLocaleString('en-IN')}`
   ]);
 
-  doc.autoTable({
+  autoTable(doc, {
     startY: 85,
     head: [['#', 'Product', 'Size', 'Qty', 'Unit Price', 'Total']],
     body: tableData,
