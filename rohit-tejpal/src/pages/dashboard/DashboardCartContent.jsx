@@ -140,7 +140,7 @@ const DashboardCartContent = () => {
               </button>
               
               <p className="text-[11px] text-gray-400 text-center mt-4 uppercase tracking-wider font-medium">
-                Secure checkout via WhatsApp
+                Secure online payment processing
               </p>
             </div>
           </div>

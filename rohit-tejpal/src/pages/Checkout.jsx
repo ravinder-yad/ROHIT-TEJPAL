@@ -4,6 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import { useCart } from '../context/CartContext';
 import axios from 'axios';
 import { FiCheckCircle, FiMapPin, FiCreditCard, FiShoppingBag, FiPlus, FiLock } from 'react-icons/fi';
+import toast from 'react-hot-toast';
 
 const Checkout = () => {
   const { user } = useAuth();
@@ -45,7 +46,7 @@ const Checkout = () => {
 
   const handlePayment = async () => {
     if (!selectedAddress) {
-      alert("Please select a delivery address");
+      toast.error("Please select a delivery address");
       return;
     }
 
@@ -53,7 +54,7 @@ const Checkout = () => {
     try {
       const res = await loadRazorpayScript();
       if (!res) {
-        alert('Razorpay SDK failed to load. Are you online?');
+        toast.error('Razorpay SDK failed to load. Are you online?');
         setLoading(false);
         return;
       }
@@ -86,7 +87,7 @@ const Checkout = () => {
 
       // Handle mock mode
       if (key === 'rzp_test_mockkey') {
-        alert("Mock Mode: Simulating successful payment without Razorpay popup.");
+        toast.success("Mock Mode: Simulating successful payment without Razorpay popup.");
         try {
           const verifyRes = await axios.post(`${apiUrl}/api/payment/verify`, {
             razorpay_order_id: id,
@@ -152,7 +153,7 @@ const Checkout = () => {
 
     } catch (error) {
       console.error("Error during checkout:", error);
-      alert("Something went wrong during checkout. Please try again.");
+      toast.error("Something went wrong during checkout. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -161,10 +162,10 @@ const Checkout = () => {
   if (!user || cartItems.length === 0) return null;
 
   return (
-    <div className="pt-24 pb-16 bg-white min-h-screen">
+    <div className="pt-24 pb-16 bg-[var(--color-primary-dark)] min-h-screen text-white">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        <h1 className="text-3xl font-bold text-[var(--color-primary-dark)] mb-8 text-center uppercase tracking-widest">Checkout</h1>
+        <h1 className="text-3xl font-bold text-[var(--color-gold)] mb-8 text-center uppercase tracking-widest">Checkout</h1>
 
         <div className="flex flex-col lg:flex-row gap-8">
           
@@ -172,10 +173,10 @@ const Checkout = () => {
           <div className="flex-1 space-y-6">
             
             {/* Step 1: Address */}
-            <div className={`bg-white rounded-none border ${step === 1 ? 'border-gray-300 shadow-sm' : 'border-gray-100'} p-6 transition-all`}>
+            <div className={`bg-white/5 rounded-lg border ${step === 1 ? 'border-[var(--color-gold)] shadow-sm' : 'border-white/10'} p-6 transition-all`}>
               <div className="flex items-center justify-between mb-4 cursor-pointer" onClick={() => setStep(1)}>
-                <h2 className="text-lg font-bold text-[var(--color-primary-dark)] flex items-center gap-2">
-                  <span className="w-6 h-6 rounded-full bg-gray-50 border border-gray-200 flex items-center justify-center text-xs">1</span>
+                <h2 className={`text-lg font-bold flex items-center gap-3 ${step === 1 ? 'text-[var(--color-gold)]' : 'text-gray-300'}`}>
+                  <span className={`w-8 h-8 rounded-full border flex items-center justify-center text-sm ${step === 1 ? 'bg-[var(--color-gold)]/10 border-[var(--color-gold)] text-[var(--color-gold)]' : 'bg-transparent border-white/20'}`}>1</span>
                   Delivery Address
                 </h2>
                 {step > 1 && selectedAddress && <FiCheckCircle className="text-[var(--color-gold)] w-5 h-5" />}
@@ -189,33 +190,33 @@ const Checkout = () => {
                         <div 
                           key={idx} 
                           onClick={() => setSelectedAddress(addr)}
-                          className={`border rounded-lg p-4 cursor-pointer transition-all ${selectedAddress?._id === addr._id ? 'border-[var(--color-primary-dark)] bg-gray-50' : 'border-gray-200 hover:border-gray-300'}`}
+                          className={`border rounded-lg p-4 cursor-pointer transition-all ${selectedAddress?._id === addr._id ? 'border-[var(--color-gold)] bg-white/10' : 'border-white/10 hover:border-white/20'}`}
                         >
                           <div className="flex justify-between items-start mb-2">
-                            <span className="text-xs font-bold uppercase tracking-wider text-gray-500 bg-white px-2 py-0.5 rounded-sm shadow-sm border border-gray-100">{addr.type}</span>
-                            {selectedAddress?._id === addr._id && <FiCheckCircle className="text-[var(--color-gold)]" />}
+                            <span className="text-xs font-bold uppercase tracking-wider text-[var(--color-primary-dark)] bg-[var(--color-gold)] px-2 py-0.5 rounded shadow-sm border border-transparent">{addr.type}</span>
+                            {selectedAddress?._id === addr._id && <FiCheckCircle className="text-[var(--color-gold)] w-5 h-5" />}
                           </div>
-                          <p className="font-bold text-gray-900 text-sm">{addr.fullName || user.name}</p>
-                          <p className="text-sm text-gray-600 mt-1 line-clamp-2">
+                          <p className="font-bold text-white text-sm">{addr.fullName || user.name}</p>
+                          <p className="text-sm text-gray-400 mt-1 line-clamp-2">
                             {addr.houseFlat}, {addr.streetArea}, {addr.city}, {addr.state} - {addr.pincode}
                           </p>
-                          <p className="text-sm text-gray-600 mt-1">Phone: {addr.phone}</p>
+                          <p className="text-sm text-gray-400 mt-1">Phone: {addr.phone}</p>
                         </div>
                       ))}
                     </div>
                   ) : (
-                    <p className="text-gray-500 text-sm mb-4">No saved addresses found.</p>
+                    <p className="text-gray-400 text-sm mb-4">No saved addresses found.</p>
                   )}
                   
                   <button onClick={() => navigate('/dashboard/settings')} className="text-sm font-bold text-[var(--color-gold)] flex items-center gap-1 hover:underline">
                     <FiPlus /> Add New Address
                   </button>
 
-                  <div className="mt-6 pt-4 border-t border-gray-100 flex justify-end">
+                  <div className="mt-6 pt-4 border-t border-white/10 flex justify-end">
                     <button 
                       onClick={() => setStep(2)} 
                       disabled={!selectedAddress}
-                      className="px-6 py-2.5 bg-[var(--color-primary-dark)] text-white text-sm font-bold uppercase tracking-widest rounded disabled:opacity-50"
+                      className="px-6 py-2.5 bg-[var(--color-gold)] text-[var(--color-primary-dark)] hover:bg-white transition-colors text-sm font-bold uppercase tracking-widest rounded-lg disabled:opacity-50 disabled:hover:bg-[var(--color-gold)] shadow-lg"
                     >
                       Continue
                     </button>
@@ -225,10 +226,10 @@ const Checkout = () => {
             </div>
 
             {/* Step 2: Order Summary */}
-            <div className={`bg-white rounded-none border ${step === 2 ? 'border-gray-300 shadow-sm' : 'border-gray-100'} p-6 transition-all`}>
+            <div className={`bg-white/5 rounded-lg border ${step === 2 ? 'border-[var(--color-gold)] shadow-sm' : 'border-white/10'} p-6 transition-all`}>
               <div className="flex items-center justify-between mb-4 cursor-pointer" onClick={() => { if(selectedAddress) setStep(2) }}>
-                <h2 className={`text-lg font-bold flex items-center gap-2 ${step >= 2 ? 'text-[var(--color-primary-dark)]' : 'text-gray-400'}`}>
-                  <span className={`w-6 h-6 rounded-full border flex items-center justify-center text-xs ${step >= 2 ? 'bg-gray-50 border-gray-200' : 'bg-transparent border-gray-100'}`}>2</span>
+                <h2 className={`text-lg font-bold flex items-center gap-3 ${step >= 2 ? 'text-[var(--color-gold)]' : 'text-gray-400'}`}>
+                  <span className={`w-8 h-8 rounded-full border flex items-center justify-center text-sm ${step >= 2 ? 'bg-[var(--color-gold)]/10 border-[var(--color-gold)] text-[var(--color-gold)]' : 'bg-transparent border-white/20 text-gray-400'}`}>2</span>
                   Order Summary
                 </h2>
                 {step > 2 && <FiCheckCircle className="text-[var(--color-gold)] w-5 h-5" />}
@@ -236,25 +237,25 @@ const Checkout = () => {
               
               {step === 2 && (
                 <div className="mt-4 space-y-4 animate-fadeIn">
-                  <div className="space-y-4 max-h-[300px] overflow-y-auto pr-2">
+                  <div className="space-y-4 max-h-[300px] overflow-y-auto pr-2 custom-scrollbar">
                     {cartItems.map((item, idx) => (
-                      <div key={idx} className="flex gap-4 p-3 bg-white rounded-sm border border-gray-100">
-                        <img src={item.image || '/placeholder.jpg'} alt={item.name} className="w-16 h-20 object-cover rounded-sm" />
+                      <div key={idx} className="flex gap-4 p-3 bg-white/5 rounded-lg border border-white/10">
+                        <img src={item.image || '/placeholder.jpg'} alt={item.name} className="w-16 h-20 object-cover rounded-md" />
                         <div className="flex-1 flex flex-col justify-center">
-                          <h4 className="text-sm font-bold text-gray-900">{item.name}</h4>
-                          <p className="text-xs text-gray-500 mt-1">Size: {item.size} | Qty: {item.quantity}</p>
+                          <h4 className="text-sm font-bold text-white">{item.name}</h4>
+                          <p className="text-xs text-gray-400 mt-1">Size: {item.size} | Qty: {item.quantity}</p>
                         </div>
                         <div className="flex items-center">
-                          <p className="text-sm font-bold text-[var(--color-primary-dark)]">₹{(item.price * item.quantity).toLocaleString('en-IN')}</p>
+                          <p className="text-sm font-bold text-[var(--color-gold)]">₹{(item.price * item.quantity).toLocaleString('en-IN')}</p>
                         </div>
                       </div>
                     ))}
                   </div>
 
-                  <div className="mt-6 pt-4 border-t border-gray-100 flex justify-end">
+                  <div className="mt-6 pt-4 border-t border-white/10 flex justify-end">
                     <button 
                       onClick={() => setStep(3)} 
-                      className="px-6 py-2.5 bg-[var(--color-primary-dark)] text-white text-sm font-bold uppercase tracking-widest rounded"
+                      className="px-6 py-2.5 bg-[var(--color-gold)] text-[var(--color-primary-dark)] hover:bg-white transition-colors text-sm font-bold uppercase tracking-widest rounded-lg shadow-lg"
                     >
                       Continue to Payment
                     </button>
@@ -264,21 +265,21 @@ const Checkout = () => {
             </div>
 
             {/* Step 3: Payment */}
-            <div className={`bg-white rounded-none border ${step === 3 ? 'border-[var(--color-gold)] shadow-sm' : 'border-gray-100'} p-6 transition-all`}>
+            <div className={`bg-white/5 rounded-lg border ${step === 3 ? 'border-[var(--color-gold)] shadow-sm' : 'border-white/10'} p-6 transition-all`}>
               <div className="flex items-center justify-between mb-4">
-                <h2 className={`text-lg font-bold flex items-center gap-2 ${step === 3 ? 'text-[var(--color-primary-dark)]' : 'text-gray-400'}`}>
-                  <span className={`w-6 h-6 rounded-full border flex items-center justify-center text-xs ${step === 3 ? 'bg-gray-50 border-gray-200' : 'bg-transparent border-gray-100'}`}>3</span>
+                <h2 className={`text-lg font-bold flex items-center gap-3 ${step === 3 ? 'text-[var(--color-gold)]' : 'text-gray-400'}`}>
+                  <span className={`w-8 h-8 rounded-full border flex items-center justify-center text-sm ${step === 3 ? 'bg-[var(--color-gold)]/10 border-[var(--color-gold)] text-[var(--color-gold)]' : 'bg-transparent border-white/20'}`}>3</span>
                   Payment Method
                 </h2>
               </div>
               
               {step === 3 && (
                 <div className="mt-4 animate-fadeIn">
-                  <div className="p-4 border border-[var(--color-gold)] bg-white rounded-sm flex items-center gap-3 cursor-pointer">
-                    <div className="w-4 h-4 rounded-full border-4 border-[var(--color-gold)] bg-white"></div>
+                  <div className="p-4 border-2 border-[var(--color-gold)] bg-[var(--color-primary-dark)] rounded-lg flex items-center gap-4 cursor-pointer shadow-[0_0_15px_rgba(212,175,55,0.2)]">
+                    <div className="w-5 h-5 rounded-full border-[5px] border-[var(--color-gold)] bg-white"></div>
                     <div>
-                      <h4 className="font-bold text-gray-900">Online Payment</h4>
-                      <p className="text-xs text-gray-500 mt-0.5">UPI, Cards, Net Banking, Wallets</p>
+                      <h4 className="font-bold text-white text-sm">Online Payment</h4>
+                      <p className="text-xs text-gray-400 mt-1">UPI, Cards, Net Banking, Wallets</p>
                     </div>
                   </div>
                 </div>
@@ -289,30 +290,30 @@ const Checkout = () => {
 
           {/* Right Sidebar - Price Details */}
           <div className="lg:w-80 flex-shrink-0">
-            <div className="bg-white rounded-none border border-gray-200 p-6 sticky top-24">
-              <h3 className="text-base font-bold text-gray-900 mb-4 pb-4 border-b border-gray-100 uppercase tracking-wider">Price Details</h3>
+            <div className="bg-white/5 rounded-lg border border-white/10 p-6 sticky top-24 shadow-xl">
+              <h3 className="text-base font-bold text-white mb-4 pb-4 border-b border-white/10 uppercase tracking-wider">Price Details</h3>
               
               <div className="space-y-3 text-sm mb-4">
-                <div className="flex justify-between text-gray-600">
+                <div className="flex justify-between text-gray-300">
                   <span>Subtotal ({cartItems.length} items)</span>
-                  <span className="font-medium">₹{subtotal.toLocaleString('en-IN')}</span>
+                  <span className="font-medium text-white">₹{subtotal.toLocaleString('en-IN')}</span>
                 </div>
-                <div className="flex justify-between text-gray-600">
+                <div className="flex justify-between text-gray-300">
                   <span>Delivery</span>
                   <span className="font-bold text-[var(--color-gold)] uppercase text-xs tracking-wider self-center">Free</span>
                 </div>
               </div>
               
-              <div className="flex justify-between items-center py-4 border-y border-gray-100 mb-6">
-                <span className="font-bold text-gray-900">Total Payable</span>
-                <span className="text-xl font-bold text-[var(--color-primary-dark)]">₹{total.toLocaleString('en-IN')}</span>
+              <div className="flex justify-between items-center py-4 border-y border-white/10 mb-6">
+                <span className="font-bold text-white">Total Payable</span>
+                <span className="text-2xl font-bold text-[var(--color-gold)]">₹{total.toLocaleString('en-IN')}</span>
               </div>
               
               {step === 3 ? (
                 <button 
                   onClick={handlePayment}
                   disabled={loading}
-                  className="w-full py-4 bg-[var(--color-primary-dark)] text-[var(--color-gold)] font-bold uppercase tracking-widest text-sm rounded flex items-center justify-center gap-2 hover:bg-black transition-all shadow-md disabled:opacity-70 disabled:cursor-not-allowed"
+                  className="w-full py-4 bg-[var(--color-gold)] text-[var(--color-primary-dark)] font-bold uppercase tracking-[0.2em] text-sm rounded-lg flex items-center justify-center gap-2 hover:bg-white transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5 disabled:opacity-70 disabled:hover:-translate-y-0 disabled:cursor-not-allowed"
                 >
                   {loading ? (
                     <span className="animate-pulse">Processing...</span>
@@ -323,7 +324,7 @@ const Checkout = () => {
               ) : (
                 <button 
                   disabled
-                  className="w-full py-4 bg-gray-200 text-gray-400 font-bold uppercase tracking-widest text-sm rounded cursor-not-allowed"
+                  className="w-full py-4 bg-white/5 text-gray-500 border border-white/10 font-bold uppercase tracking-widest text-xs rounded-lg cursor-not-allowed"
                 >
                   Complete Previous Steps
                 </button>

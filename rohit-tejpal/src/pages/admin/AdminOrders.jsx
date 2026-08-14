@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { FiCheckCircle, FiClock, FiTruck, FiPackage, FiSearch } from 'react-icons/fi';
+import toast from 'react-hot-toast';
 
 const AdminOrders = () => {
   const [orders, setOrders] = useState([]);
@@ -29,14 +30,12 @@ const AdminOrders = () => {
   const updateOrderStatus = async (orderId, newStatus) => {
     try {
       const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
-      await axios.put(`${apiUrl}/api/orders/${orderId}/status`, { status: newStatus }, { withCredentials: true });
-      
-      setOrders(orders.map(order => 
-        order._id === orderId ? { ...order, status: newStatus } : order
-      ));
-    } catch (error) {
-      console.error("Error updating status:", error);
-      alert("Failed to update status");
+      const res = await axios.put(`${apiUrl}/api/orders/${orderId}/status`, { status: newStatus }, { withCredentials: true });
+      setOrders(orders.map(o => o._id === orderId ? res.data : o));
+      toast.success("Order status updated");
+    } catch (err) {
+      console.error(err);
+      toast.error("Failed to update status");
     }
   };
 

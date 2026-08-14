@@ -8,6 +8,7 @@ import { FiShoppingBag, FiHeart } from 'react-icons/fi';
 import { useCart } from '../context/CartContext';
 import { useWishlist } from '../context/WishlistContext';
 import AnimatedButton from '../components/ui/AnimatedButton';
+import toast from 'react-hot-toast';
 
 const ProductDetails = () => {
   const { category, id } = useParams();
@@ -21,10 +22,12 @@ const ProductDetails = () => {
 
   const handleAddToCart = () => {
     if (product?.sizes?.length > 0 && !selectedSize) {
-      alert('Please select a size first.');
+      toast.error('Please select a size first.');
       return;
     }
     addToCart(product, selectedSize, 1);
+    toast.success('Added to bag!');
+    navigate('/cart');
   };
 
   useEffect(() => {
@@ -144,7 +147,7 @@ const ProductDetails = () => {
                 <button 
                   onClick={() => {
                     handleAddToCart();
-                    navigate('/checkout');
+                    navigate('/dashboard/cart');
                   }}
                   disabled={product.inStock === false}
                   className="flex-1 bg-white border border-white text-[var(--color-primary-dark)] text-xs font-bold uppercase tracking-widest py-4 px-8 rounded-sm hover:bg-transparent hover:text-white hover:border-white transition-colors duration-300 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
@@ -180,11 +183,11 @@ const ProductDetails = () => {
               <div className="grid grid-cols-1 gap-4 mb-8">
                 <AnimatedButton 
                   onClick={() => {
-                    if (!selectedSize && (product.sizes || ['S', 'M', 'L']).length > 0) {
-                      alert('Please select a size first.');
+                    if (product?.sizes?.length > 0 && !selectedSize) {
+                      toast.error('Please select a size first.');
                       return;
                     }
-                    addToCart(product, selectedSize || 'Free Size', 1);
+                    handleAddToCart();
                   }}
                   theme="gold"
                   fullWidth={true}

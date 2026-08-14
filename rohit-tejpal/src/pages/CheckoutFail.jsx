@@ -3,6 +3,7 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import { FiXCircle, FiRefreshCw, FiArrowLeft } from 'react-icons/fi';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
+import toast from 'react-hot-toast';
 
 const CheckoutFail = () => {
   const { orderId } = useParams();
@@ -43,7 +44,7 @@ const CheckoutFail = () => {
     try {
       const res = await loadRazorpayScript();
       if (!res) {
-        alert('Razorpay SDK failed to load. Are you online?');
+        toast.error('Razorpay SDK failed to load. Are you online?');
         setLoading(false);
         return;
       }
@@ -93,8 +94,8 @@ const CheckoutFail = () => {
       });
       paymentObject.open();
     } catch (error) {
-      console.error(error);
-      alert("Error initiating payment retry.");
+      console.error("Error during payment retry:", error);
+      toast.error("Error initiating payment retry.");
     } finally {
       setLoading(false);
     }

@@ -33,7 +33,7 @@ const AnimatedButton = ({
     gold: 'bg-[var(--color-gold)]'
   };
 
-  const disabledClasses = disabled ? 'opacity-50 cursor-not-allowed pointer-events-none' : '';
+  const disabledClasses = disabled ? 'opacity-50 cursor-not-allowed pointer-events-none' : 'cursor-pointer';
   const widthClass = fullWidth ? 'w-full' : 'w-auto';
 
   const baseClasses = `group/btn relative inline-flex items-center justify-center overflow-hidden border px-10 py-4 text-[10px] font-bold uppercase tracking-[0.2em] transition-all duration-500 ${themeClasses[theme]} ${widthClass} ${disabledClasses} ${className}`;

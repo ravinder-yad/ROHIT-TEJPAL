@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route, useLocation, Navigate } from 'react-router-dom';
+import { Toaster } from 'react-hot-toast';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import Home from './pages/Home';
@@ -39,6 +40,14 @@ const AppContent = () => {
 
   return (
     <div className="min-h-screen flex flex-col font-sans bg-[var(--color-off-white)] relative">
+      <Toaster position="bottom-right" toastOptions={{
+        style: {
+          background: '#333',
+          color: '#fff',
+          borderRadius: '4px',
+          fontSize: '14px'
+        }
+      }} />
       {!hideNavbarFooter && <Navbar />}
       <main className="flex-1 w-full">
         <PageTransition>
