@@ -1,5 +1,6 @@
 import express from 'express';
 import {
+  getUserProfile,
   updateUserProfile,
   updateUserPassword,
   updateUserNotifications,
@@ -10,7 +11,8 @@ import {
   syncCart,
   getWishlist,
   syncWishlist,
-  getUsers
+  getUsers,
+  bulkDeleteUsers
 } from '../controllers/userController.js';
 import { protect, adminAuth } from '../middleware/authMiddleware.js';
 import upload from '../middleware/multer.js';
@@ -18,7 +20,9 @@ import upload from '../middleware/multer.js';
 const router = express.Router();
 
 router.get('/', protect, adminAuth, getUsers);
+router.post('/bulk-delete', protect, adminAuth, bulkDeleteUsers);
 
+router.get('/profile', protect, getUserProfile);
 router.put('/profile', protect, upload.single('profileImage'), updateUserProfile);
 router.put('/password', protect, updateUserPassword);
 router.put('/notifications', protect, updateUserNotifications);

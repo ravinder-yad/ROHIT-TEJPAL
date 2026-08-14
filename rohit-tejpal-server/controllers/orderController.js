@@ -86,3 +86,21 @@ export const updateOrderStatus = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+// @desc    Bulk delete orders (admin only)
+// @route   POST /api/orders/bulk-delete
+// @access  Private/Admin
+export const bulkDeleteOrders = async (req, res) => {
+  try {
+    const { orderIds } = req.body;
+    
+    if (!orderIds || !Array.isArray(orderIds) || orderIds.length === 0) {
+      return res.status(400).json({ message: 'No orders selected for deletion' });
+    }
+
+    await Order.deleteMany({ _id: { $in: orderIds } });
+    
+    res.json({ message: 'Selected orders deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};

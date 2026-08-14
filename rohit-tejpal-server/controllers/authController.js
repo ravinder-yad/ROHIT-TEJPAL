@@ -4,6 +4,7 @@ import generateToken from '../utils/generateToken.js';
 import crypto from 'crypto';
 import cloudinary from '../config/cloudinary.js';
 import sendEmail from '../utils/sendEmail.js';
+import { getOtpEmailTemplate } from '../utils/emailTemplates.js';
 
 // Helper to generate 6 digit OTP
 const generateOTP = () => {
@@ -48,12 +49,7 @@ const registerUser = async (req, res) => {
     const emailSent = await sendEmail({
       email: user.email,
       subject: 'Verify your Rohit Tejpal Account',
-      html: `
-        <h1>Account Verification</h1>
-        <p>Hello ${user.name},</p>
-        <p>Your OTP for account verification is: <strong>${otp}</strong></p>
-        <p>This OTP will expire in 5 minutes.</p>
-      `,
+      html: getOtpEmailTemplate(user.name, otp, 'register'),
     });
 
     if (emailSent) {
@@ -88,12 +84,7 @@ const loginUser = async (req, res) => {
       const emailSent = await sendEmail({
         email: user.email,
         subject: 'Login OTP for Rohit Tejpal',
-        html: `
-          <h1>Login Verification</h1>
-          <p>Hello ${user.name},</p>
-          <p>Your OTP for login is: <strong>${otp}</strong></p>
-          <p>This OTP will expire in 5 minutes.</p>
-        `,
+        html: getOtpEmailTemplate(user.name, otp, 'login'),
       });
 
       if (emailSent) {
@@ -142,6 +133,12 @@ const verifyOTP = async (req, res) => {
       email: user.email,
       phone: user.phone,
       role: user.role,
+      profileImage: user.profileImage,
+      addresses: user.addresses,
+      cart: user.cart,
+      wishlist: user.wishlist,
+      notifications: user.notifications,
+      isVerified: user.isVerified
     });
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -168,12 +165,7 @@ const forgotPassword = async (req, res) => {
     const emailSent = await sendEmail({
       email: user.email,
       subject: 'Password Reset OTP',
-      html: `
-        <h1>Reset Password</h1>
-        <p>Hello ${user.name},</p>
-        <p>Your OTP to reset your password is: <strong>${otp}</strong></p>
-        <p>This OTP will expire in 5 minutes.</p>
-      `,
+      html: getOtpEmailTemplate(user.name, otp, 'forgotPassword'),
     });
 
     if (emailSent) {
@@ -241,12 +233,7 @@ const loginAdmin = async (req, res) => {
     const emailSent = await sendEmail({
       email: admin.email,
       subject: 'Admin Login OTP for Rohit Tejpal',
-      html: `
-        <h1>Admin Login Verification</h1>
-        <p>Hello ${admin.name},</p>
-        <p>Your OTP for admin login is: <strong>${otp}</strong></p>
-        <p>This OTP will expire in 5 minutes.</p>
-      `,
+      html: getOtpEmailTemplate(admin.name, otp, 'adminLogin'),
     });
 
     if (emailSent) {
@@ -287,12 +274,7 @@ const registerAdmin = async (req, res) => {
     const emailSent = await sendEmail({
       email: admin.email,
       subject: 'Admin Account Created - Verify OTP',
-      html: `
-        <h1>Admin Setup Verification</h1>
-        <p>Hello ${admin.name},</p>
-        <p>Your OTP for admin verification is: <strong>${otp}</strong></p>
-        <p>This OTP will expire in 5 minutes.</p>
-      `,
+      html: getOtpEmailTemplate(admin.name, otp, 'adminRegister'),
     });
 
     if (emailSent) {

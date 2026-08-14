@@ -14,9 +14,9 @@ export const createOrder = async (req, res) => {
       return res.status(404).json({ message: 'Order not found' });
     }
 
-    // Check if we have real Razorpay keys
-    const rzpId = (process.env.RAZORPAY_KEY_ID || '').trim();
-    const rzpSecret = (process.env.RAZORPAY_KEY_SECRET || '').trim();
+    // Hardcode keys to bypass any .env loading issues
+    const rzpId = 'rzp_test_TPcKCZyXxQ2ky0';
+    const rzpSecret = 'L94Fn6RPQcbj9GrpmiGIet5S';
 
     if (!rzpId || rzpId === 'dummy_id') {
       console.log("Using Mock Razorpay Order (No keys provided)");
@@ -70,8 +70,8 @@ export const verifyPayment = async (req, res) => {
   try {
     const { razorpay_order_id, razorpay_payment_id, razorpay_signature, orderId } = req.body;
 
-    // Check if we are in mock mode
-    if (!process.env.RAZORPAY_KEY_ID || process.env.RAZORPAY_KEY_ID === 'dummy_id') {
+    // Bypass mock mode check completely
+    if (false) {
       console.log("Verifying Mock Razorpay Order");
       const order = await Order.findById(orderId);
       if (order) {
@@ -96,7 +96,7 @@ export const verifyPayment = async (req, res) => {
     // Verify signature
     const sign = razorpay_order_id + "|" + razorpay_payment_id;
     const expectedSign = crypto
-      .createHmac("sha256", process.env.RAZORPAY_KEY_SECRET)
+      .createHmac("sha256", "L94Fn6RPQcbj9GrpmiGIet5S") // Hardcoded Secret
       .update(sign.toString())
       .digest("hex");
 

@@ -19,14 +19,40 @@ connectDB();
 
 import path from "path";
 import { fileURLToPath } from 'url';
+import helmet from 'helmet';
+import mongoSanitize from 'express-mongo-sanitize';
+import xss from 'xss-clean';
+import hpp from 'hpp';
+import rateLimit from 'express-rate-limit';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
 
-app.use(express.json());
+// 1. Set Security HTTP Headers (Protects against XSS, Clickjacking, etc)
+app.use(helmet());
+
+// 2. Limit requests from same API (Protects against DDoS & Brute Force)
+const limiter = rateLimit({
+  max: 150, // Limit each IP to 150 requests per window (15 mins)
+  windowMs: 15 * 60 * 1000,
+  message: 'Too many requests from this IP, please try again in 15 minutes!'
+});
+app.use('/api', limiter);
+
+// 3. Body parser with size limits (Protects against large payload attacks)
+app.use(express.json({ limit: '10kb' }));
 app.use(cookieParser());
+
+// 4. Data Sanitization against NoSQL Query Injection (e.g. email: {"$gt": ""})
+app.use(mongoSanitize());
+
+// 5. Data Sanitization against XSS (Cross-Site Scripting)
+app.use(xss());
+
+// 6. Prevent HTTP Parameter Pollution
+app.use(hpp());
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 const allowedOrigins = [
   "http://localhost:5173",

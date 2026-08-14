@@ -2,6 +2,22 @@ import User from '../models/User.js';
 import generateToken from '../utils/generateToken.js';
 import cloudinary from '../config/cloudinary.js';
 
+// @desc    Get user profile
+// @route   GET /api/users/profile
+// @access  Private
+export const getUserProfile = async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id).select('-password');
+    if (user) {
+      res.json(user);
+    } else {
+      res.status(404).json({ message: 'User not found' });
+    }
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 // @desc    Update user profile & photo
 // @route   PUT /api/users/profile
 // @access  Private
@@ -37,7 +53,10 @@ export const updateUserProfile = async (req, res) => {
         role: updatedUser.role,
         profileImage: updatedUser.profileImage,
         addresses: updatedUser.addresses,
+        cart: updatedUser.cart,
+        wishlist: updatedUser.wishlist,
         notifications: updatedUser.notifications,
+        isVerified: updatedUser.isVerified
       });
     } else {
       res.status(404).json({ message: 'User not found' });
@@ -264,6 +283,26 @@ export const getUsers = async (req, res) => {
   try {
     const users = await User.find({}).select('-password').sort({ createdAt: -1 });
     res.json(users);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+// @desc    Bulk delete users (admin only)
+// @route   POST /api/users/bulk-delete
+// @access  Private/Admin
+export const bulkDeleteUsers = async (req, res) => {
+  try {
+    const { userIds } = req.body;
+    
+    if (!userIds || !Array.isArray(userIds) || userIds.length === 0) {
+      return res.status(400).json({ message: 'No users selected for deletion' });
+    }
+
+    // Optional: Prevent admin from deleting themselves if admin was a user too, but admins have separate model here.
+    
+    await User.deleteMany({ _id: { $in: userIds } });
+    
+    res.json({ message: 'Selected users deleted successfully' });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

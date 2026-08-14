@@ -2,6 +2,7 @@ import Product from "../models/Product.js";
 import Order from "../models/Order.js";
 import Category from "../models/Category.js";
 import Collection from "../models/Collection.js";
+import User from "../models/User.js";
 
 // @desc    Get dashboard statistics
 // @route   GET /api/admin/dashboard
@@ -11,8 +12,14 @@ export const getDashboardStats = async (req, res) => {
     // 1. Total Products
     const totalProducts = await Product.countDocuments();
 
-    // 2. Total Orders
+    // 2. Total Orders (Live Orders)
     const totalOrders = await Order.countDocuments();
+
+    // Connected Users
+    const totalUsers = await User.countDocuments();
+
+    // Live Payments (Real Payments)
+    const livePayments = await Order.countDocuments({ isPaid: true, paymentStatus: { $nin: ["failed"] } });
 
     // 3. Sales Overview (Total Sales from 'delivered' or 'paid' orders)
     // Assuming 'delivered' means the sale is final, or 'paid' for prepaid. Let's aggregate totalAmount of orders that are not failed or cancelled.
@@ -137,6 +144,8 @@ export const getDashboardStats = async (req, res) => {
           totalSales,
           lowStockCount,
           outOfStockCount,
+          totalUsers,
+          livePayments
         },
         orderStatusOverview: defaultStatuses,
         categoryStats,
