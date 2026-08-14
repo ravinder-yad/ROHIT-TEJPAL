@@ -385,12 +385,14 @@ const OrdersContent = () => {
                   </div>
                 </div>
                 <div className="flex justify-end flex-col items-end h-full">
-                  <button 
-                    onClick={() => downloadOrderReceipt(order)}
-                    className="mt-4 md:mt-0 text-[10px] font-bold uppercase tracking-widest bg-[var(--color-primary-dark)] text-white px-4 py-2 rounded hover:bg-[var(--color-gold)] transition-colors"
-                  >
-                    Download Receipt
-                  </button>
+                  {order.isPaid && (
+                    <button 
+                      onClick={() => downloadOrderReceipt(order)}
+                      className="mt-4 md:mt-0 text-[10px] font-bold uppercase tracking-widest bg-[var(--color-primary-dark)] text-white px-4 py-2 rounded hover:bg-[var(--color-gold)] transition-colors"
+                    >
+                      Download Receipt
+                    </button>
+                  )}
                 </div>
               </div>
               
