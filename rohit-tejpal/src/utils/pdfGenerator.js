@@ -113,7 +113,7 @@ export const downloadOrderReceipt = async (order, userDetails = null) => {
   
   doc.setFont("helvetica", "bold");
   doc.setTextColor(primaryDark[0], primaryDark[1], primaryDark[2]);
-  doc.text('Email: rohittejpal@gmail.com', 120, 107);
+  doc.text('Email: tejpalrohit4@gmail.com', 120, 107);
   doc.setFont("helvetica", "normal");
   doc.setTextColor(textLight[0], textLight[1], textLight[2]);
   doc.text('Phone: +91 9873737512', 120, 112);
