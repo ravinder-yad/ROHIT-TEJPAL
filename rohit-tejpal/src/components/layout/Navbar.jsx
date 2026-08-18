@@ -240,20 +240,38 @@ const Navbar = () => {
             </button>
           </div>
           <div className="flex-1 p-4 md:p-8 max-w-3xl w-full mx-auto">
-            <div className="relative">
+            <form 
+              className="relative" 
+              onSubmit={(e) => {
+                e.preventDefault();
+                const term = e.target.search.value.trim();
+                if (term) {
+                  setSearchOpen(false);
+                  window.location.href = `/products?search=${encodeURIComponent(term)}`;
+                }
+              }}
+            >
               <FiSearch className="absolute left-4 top-1/2 -translate-y-1/2 w-6 h-6 text-gray-400" />
               <input 
+                name="search"
                 type="text" 
-                placeholder="Search for sherwanis, kurta sets, suits..." 
+                placeholder="Search for tunic sets, kurta sets, kaftans..." 
                 className="w-full text-xl md:text-3xl py-4 pl-14 pr-4 border-b border-white/20 bg-transparent outline-none focus:border-[var(--color-gold)] transition-colors placeholder:text-gray-500 font-light text-white"
                 autoFocus
               />
-            </div>
+            </form>
             <div className="mt-12">
               <h3 className="text-sm font-bold text-gray-500 uppercase tracking-wider mb-6">Popular Searches</h3>
               <div className="flex flex-wrap gap-3">
-                {['Sherwani', 'Kurta Sets', 'Tuxedos', 'Indo Western', 'Jacket'].map(term => (
-                  <button key={term} className="px-6 py-3 bg-white/5 border border-white/10 hover:border-[var(--color-gold)] hover:text-[var(--color-gold)] rounded-sm text-sm font-medium transition-all duration-300">
+                {['Tunic Sets', 'Kurta Sets', 'Kaftans', 'Top & Skirt', 'Festive Edit'].map(term => (
+                  <button 
+                    key={term} 
+                    onClick={() => {
+                      setSearchOpen(false);
+                      window.location.href = `/products?search=${encodeURIComponent(term)}`;
+                    }}
+                    className="px-6 py-3 bg-white/5 border border-white/10 hover:border-[var(--color-gold)] hover:text-[var(--color-gold)] rounded-sm text-sm font-medium transition-all duration-300"
+                  >
                     {term}
                   </button>
                 ))}

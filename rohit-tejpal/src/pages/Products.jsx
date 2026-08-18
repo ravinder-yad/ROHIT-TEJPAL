@@ -18,6 +18,7 @@ const Products = () => {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const currentCategory = searchParams.get('category') || 'all';
+  const searchQuery = searchParams.get('search') || '';
   
   // Find the active category object to display dynamic hero text
   const activeCategoryObj = CATEGORIES.find(c => c.id === currentCategory) || CATEGORIES[0];
@@ -71,6 +72,17 @@ const Products = () => {
   const filteredAndSortedProducts = useMemo(() => {
     let result = [...products];
 
+    // Filter by Search Query
+    if (searchQuery) {
+      const q = searchQuery.toLowerCase();
+      result = result.filter(p => 
+        (p.name && p.name.toLowerCase().includes(q)) || 
+        (p.description && p.description.toLowerCase().includes(q)) ||
+        (p.category && p.category.toLowerCase().includes(q)) ||
+        (p.collectionRef && typeof p.collectionRef === 'object' && p.collectionRef.name && p.collectionRef.name.toLowerCase().includes(q))
+      );
+    }
+
     // Filter by Size
     if (selectedSizes.length > 0) {
       result = result.filter(p => p.sizes && p.sizes.some(s => selectedSizes.includes(s)));
@@ -97,7 +109,7 @@ const Products = () => {
     // Newest is default (presumed sorted by backend)
 
     return result;
-  }, [products, selectedSizes, priceRange, sortBy]);
+  }, [products, searchQuery, selectedSizes, priceRange, sortBy]);
 
   const visibleProducts = filteredAndSortedProducts.slice(0, displayCount);
   const hasMore = displayCount < filteredAndSortedProducts.length;
@@ -121,14 +133,16 @@ const Products = () => {
       {/* Editorial Hero Header */}
       <section className="bg-[var(--color-primary-dark)] border-b border-white/10 flex flex-col items-center justify-center text-center px-4 py-12 md:py-16 min-h-[180px] md:min-h-[240px]">
         <h1 className="text-white text-4xl md:text-5xl lg:text-6xl font-serif font-light tracking-wide mb-4 uppercase">
-          {currentCategory === 'all' ? (
+          {searchQuery ? (
+            <span className="text-[var(--color-gold)]">Search Results</span>
+          ) : currentCategory === 'all' ? (
             <><span className="italic text-[var(--color-gold)]">THE</span> SHOP</>
           ) : (
             activeCategoryObj.heroTitle
           )}
         </h1>
         <p className="text-gray-300 text-sm md:text-base font-light tracking-widest uppercase mb-2">
-          {activeCategoryObj.heroSubtitle}
+          {searchQuery ? `Showing results for "${searchQuery}"` : activeCategoryObj.heroSubtitle}
         </p>
         <div className="flex items-center gap-4 mt-4">
           <span className="w-12 h-[1px] bg-[var(--color-gold)] opacity-40"></span>
