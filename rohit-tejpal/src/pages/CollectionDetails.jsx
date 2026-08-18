@@ -86,7 +86,7 @@ const CollectionDetails = () => {
         {/* Background Image if available */}
         {collection.image && (
           <div className="absolute inset-0 z-0">
-            <img src={collection.image} alt={collection.name} className="w-full h-full object-cover opacity-20" />
+            <img src={collection.image} alt={collection.name} className="w-full h-full object-cover object-top opacity-20" />
             <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-primary-dark)] to-transparent"></div>
           </div>
         )}
