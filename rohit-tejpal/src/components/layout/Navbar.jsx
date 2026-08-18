@@ -114,7 +114,7 @@ const Navbar = () => {
           isScrolled ? 'h-[75px] md:h-[85px] border-b border-[var(--color-primary-dark)] shadow-md' : 'h-[90px] md:h-[120px] border-b border-transparent'
         }`}
       >
-        <div className="w-full max-w-[1600px] mx-auto px-4 md:px-8 lg:px-12 h-full flex items-center justify-between">
+        <div className="relative w-full max-w-[1600px] mx-auto px-4 md:px-8 lg:px-12 h-full flex items-center justify-between">
           
           {/* Mobile Left Section (Menu + Logo) */}
           <div className="flex-1 flex items-center lg:hidden">
@@ -136,7 +136,7 @@ const Navbar = () => {
           </div>
 
           {/* Desktop Logo */}
-          <div className="hidden lg:flex items-center h-full">
+          <div className="hidden lg:flex items-center h-full flex-1">
             <Link to="/" className="flex-shrink-0 flex items-center justify-center text-white hover:text-[var(--color-gold)] transition-colors duration-300 z-50 h-full">
               <BrandLogoImage 
                 className={`transition-all duration-300 object-contain px-3 transform scale-[1.3] origin-center ${
@@ -148,8 +148,8 @@ const Navbar = () => {
             </Link>
           </div>
 
-          {/* Desktop Navigation (Left-aligned next to logo) */}
-          <div className="hidden lg:flex items-center justify-start gap-8 xl:gap-12 h-full flex-1 ml-8 xl:ml-12">
+          {/* Desktop Navigation (Centered) */}
+          <div className="hidden lg:flex items-center justify-center gap-8 xl:gap-12 h-full absolute left-1/2 -translate-x-1/2 whitespace-nowrap">
             <NavLink to="/">Home</NavLink>
             <NavLink to="/collections" dropdown={dynamicCollectionsDropdown}>Collections</NavLink>
             <NavLink to="/products" dropdown={navigationData.shopDropdown}>Shop</NavLink>
