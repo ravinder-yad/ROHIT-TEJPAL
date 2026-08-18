@@ -151,7 +151,7 @@ const Navbar = () => {
           {/* Desktop Navigation (Left-aligned next to logo) */}
           <div className="hidden lg:flex items-center justify-start gap-8 xl:gap-12 h-full flex-1 ml-8 xl:ml-12">
             <NavLink to="/">Home</NavLink>
-            <NavLink to="/collections" dropdown={navigationData.collectionsDropdown}>Collections</NavLink>
+            <NavLink to="/collections" dropdown={dynamicCollectionsDropdown}>Collections</NavLink>
             <NavLink to="/products" dropdown={navigationData.shopDropdown}>Shop</NavLink>
             <NavLink to="/about">About</NavLink>
             <NavLink to="/gallery">Gallery</NavLink>
@@ -228,7 +228,7 @@ const Navbar = () => {
       <MobileMenu 
         isOpen={mobileMenuOpen} 
         onClose={() => setMobileMenuOpen(false)} 
-        navigationData={{ ...navigationData, user, logout }}
+        navigationData={{ ...navigationData, collectionsDropdown: dynamicCollectionsDropdown, user, logout }}
       />
 
       {/* Full Screen Search Overlay */}
