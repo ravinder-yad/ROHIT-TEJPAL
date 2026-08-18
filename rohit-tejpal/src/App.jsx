@@ -58,7 +58,6 @@ const AppContent = () => {
             <Route path="/collections" element={<Collections />} />
             <Route path="/collections/:slug" element={<CollectionDetails />} />
             <Route path="/about" element={<About />} />
-            <Route path="/gallery" element={<Gallery />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/wishlist" element={<Navigate to="/dashboard/wishlist" replace />} />
             <Route path="/cart" element={<Navigate to="/dashboard/cart" replace />} />

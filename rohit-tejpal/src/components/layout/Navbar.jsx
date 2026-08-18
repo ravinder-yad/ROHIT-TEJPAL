@@ -154,7 +154,6 @@ const Navbar = () => {
             <NavLink to="/collections" dropdown={dynamicCollectionsDropdown}>Collections</NavLink>
             <NavLink to="/products" dropdown={navigationData.shopDropdown}>Shop</NavLink>
             <NavLink to="/about">About</NavLink>
-            <NavLink to="/gallery">Gallery</NavLink>
             <NavLink to="/contact">Contact</NavLink>
           </div>
 

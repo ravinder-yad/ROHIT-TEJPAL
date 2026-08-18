@@ -113,9 +113,6 @@ const MobileMenu = ({ isOpen, onClose, navigationData }) => {
               About
             </Link>
 
-            <Link to="/gallery" className="px-6 py-4 text-[17px] text-[var(--color-gold)] border-b border-white/5 font-medium bg-white/5" onClick={onClose}>
-              Gallery
-            </Link>
 
             <Link to="/contact" className="px-6 py-4 text-[17px] text-white border-b border-white/5" onClick={onClose}>
               Contact
