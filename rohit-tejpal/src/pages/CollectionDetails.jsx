@@ -85,9 +85,13 @@ const CollectionDetails = () => {
       >
         {/* Background Image if available */}
         {collection.image && (
-          <div className="absolute inset-0 z-0">
-            <img src={collection.image} alt={collection.name} className="w-full h-full object-cover object-top opacity-20" />
-            <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-primary-dark)] to-transparent"></div>
+          <div className="absolute inset-0 z-0 overflow-hidden">
+            {/* Blurred background to fill space */}
+            <img src={collection.image} alt="background blur" className="absolute inset-0 w-full h-full object-cover opacity-10 blur-xl scale-110" />
+            {/* Full uncropped image */}
+            <img src={collection.image} alt={collection.name} className="absolute inset-0 w-full h-full object-contain opacity-60" />
+            
+            <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-primary-dark)] via-[var(--color-primary-dark)]/40 to-transparent"></div>
           </div>
         )}
         
