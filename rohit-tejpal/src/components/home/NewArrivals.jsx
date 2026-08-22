@@ -92,12 +92,12 @@ const NewArrivals = () => {
                   />
                   
                   {/* Product Tags */}
-                  <div className="absolute top-3 left-3 bg-white px-3 py-1 text-[8px] font-bold tracking-[0.2em] text-[var(--color-main-bg)] uppercase shadow-md">
+                  <div className="absolute top-3 left-3 bg-[var(--color-main-bg)] border border-[var(--color-border)]/50 px-3 py-1 text-[8px] font-bold tracking-[0.2em] text-[var(--color-text-main)] uppercase shadow-md">
                     NEW
                   </div>
                   
                   {/* Hover Like (Heart) Button */}
-                  <button className={`absolute top-3 right-3 bg-white/90 backdrop-blur-sm p-2.5 rounded-full hover:bg-[var(--color-gold)] hover:text-[var(--color-text-main)] transition-all duration-300 shadow-md opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 z-10 ${isInWishlist(product._id) ? 'text-[var(--color-gold)]' : 'text-[var(--color-main-bg)]'}`} onClick={(e) => { e.preventDefault(); e.stopPropagation(); toggleWishlist(product); }}>
+                  <button className={`absolute top-3 right-3 bg-[var(--color-main-bg)]/90 border border-[var(--color-border)]/50 backdrop-blur-sm p-2.5 rounded-full hover:bg-[var(--color-gold)] hover:text-[var(--color-main-bg)] hover:border-[var(--color-gold)] transition-all duration-300 shadow-md opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 z-10 ${isInWishlist(product._id) ? 'text-[var(--color-gold)]' : 'text-[var(--color-text-main)]'}`} onClick={(e) => { e.preventDefault(); e.stopPropagation(); toggleWishlist(product); }}>
                     <FiHeart className={`w-4 h-4 ${isInWishlist(product._id) ? 'fill-current' : ''}`} />
                   </button>
                   
@@ -106,7 +106,7 @@ const NewArrivals = () => {
                   
                   {/* Desktop Action Buttons */}
                   <div className="absolute bottom-0 left-0 right-0 p-3 translate-y-full opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100 hidden lg:flex">
-                    <button className="w-full flex items-center justify-center gap-2 bg-white/95 backdrop-blur-md text-[var(--color-main-bg)] py-3 text-[10px] font-bold tracking-[0.25em] uppercase hover:bg-[var(--color-gold)] hover:text-[var(--color-text-main)] transition-colors shadow-lg">
+                    <button className="w-full flex items-center justify-center gap-2 bg-[var(--color-main-bg)]/95 border-t border-[var(--color-border)]/50 backdrop-blur-md text-[var(--color-text-main)] py-3 text-[10px] font-bold tracking-[0.25em] uppercase hover:bg-[var(--color-gold)] hover:text-[var(--color-main-bg)] hover:border-[var(--color-gold)] transition-colors shadow-lg">
                       <FiShoppingBag className="w-3.5 h-3.5" />
                       <span>VIEW DETAILS</span>
                     </button>
@@ -133,7 +133,7 @@ const NewArrivals = () => {
         <div className="flex md:hidden mt-12 justify-center">
           <Link 
             to="/collections/new-arrivals"
-            className="inline-flex items-center px-10 py-3 border border-[var(--color-gold)] text-[11px] font-semibold tracking-[0.2em] uppercase text-[var(--color-gold)] hover:bg-[var(--color-gold)] hover:text-[var(--color-main-bg)] transition-all"
+            className="inline-flex items-center px-10 py-3 border border-[var(--color-gold)] text-[11px] font-semibold tracking-[0.2em] uppercase text-[var(--color-gold)] hover:bg-[var(--color-gold)] hover:text-[var(--color-main-bg)] hover:border-[var(--color-gold)] transition-all"
           >
             DISCOVER ALL
           </Link>
