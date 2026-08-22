@@ -57,14 +57,14 @@ const ForgotPassword = () => {
 
   return (
     <div className="min-h-screen bg-[var(--color-main-bg)] py-20 flex items-center justify-center px-4">
-      <div className="max-w-md w-full bg-[#353f56] p-8 md:p-12 rounded-sm shadow-2xl relative overflow-hidden">
+      <div className="max-w-md w-full bg-[var(--color-alt-bg)] p-8 md:p-12 rounded-sm shadow-2xl relative overflow-hidden">
         {/* Decorative elements */}
         <div className="absolute top-0 right-0 w-32 h-32 bg-[var(--color-gold)] opacity-5 rounded-bl-full pointer-events-none"></div>
         <div className="absolute bottom-0 left-0 w-32 h-32 bg-[var(--color-gold)] opacity-5 rounded-tr-full pointer-events-none"></div>
 
         <div className="text-center mb-10 relative z-10">
           <h1 className="text-3xl md:text-4xl font-serif text-[var(--color-text-main)] mb-3">Reset Password</h1>
-          <p className="text-[#aeb5c7] text-sm md:text-base font-light tracking-wide">
+          <p className="text-[var(--color-text-secondary)] text-sm md:text-base font-light tracking-wide">
             {isSubmitted 
               ? "Enter the OTP sent to your email and a new password." 
               : "Enter your email to receive a verification OTP."}
@@ -86,13 +86,13 @@ const ForgotPassword = () => {
         {!isSubmitted ? (
           <form onSubmit={handleEmailSubmit} className="space-y-6 relative z-10">
             <div className="space-y-1">
-              <label className="text-[11px] uppercase tracking-[2px] text-[#aeb5c7] font-semibold ml-1">Email Address</label>
+              <label className="text-[11px] uppercase tracking-[2px] text-[var(--color-text-secondary)] font-semibold ml-1">Email Address</label>
               <input
                 type="email"
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full bg-[#2a3245] border border-[#4a5568] focus:border-[var(--color-gold)] text-[var(--color-text-main)] px-5 py-4 outline-none transition-colors rounded-sm"
+                className="w-full bg-[var(--color-main-bg)] border border-[var(--color-border)] focus:border-[var(--color-gold)] text-[var(--color-text-main)] px-5 py-4 outline-none transition-colors rounded-sm"
                 placeholder="Enter your email"
               />
             </div>
@@ -100,7 +100,7 @@ const ForgotPassword = () => {
             <div className="pt-2">
               <AnimatedButton 
                 type="submit" 
-                className="w-full justify-center py-4 bg-[var(--color-gold)] hover:bg-[#a38855] text-[var(--color-text-main)] font-semibold tracking-wider text-sm shadow-[0_0_15px_rgba(182,154,97,0.3)] hover:shadow-[0_0_25px_rgba(182,154,97,0.5)] transition-all duration-300"
+                className="w-full justify-center py-4 bg-[var(--color-gold)] hover:bg-[var(--color-gold-light)] text-[var(--color-text-main)] font-semibold tracking-wider text-sm shadow-[0_0_15px_rgba(182,154,97,0.3)] hover:shadow-[0_0_25px_rgba(182,154,97,0.5)] transition-all duration-300"
                 disabled={isSubmitting}
               >
                 {isSubmitting ? 'SENDING OTP...' : 'SEND OTP'}
@@ -110,26 +110,26 @@ const ForgotPassword = () => {
         ) : (
           <form onSubmit={handleResetSubmit} className="space-y-6 relative z-10">
             <div className="space-y-1">
-              <label className="text-[11px] uppercase tracking-[2px] text-[#aeb5c7] font-semibold ml-1">Enter OTP</label>
+              <label className="text-[11px] uppercase tracking-[2px] text-[var(--color-text-secondary)] font-semibold ml-1">Enter OTP</label>
               <input
                 type="text"
                 required
                 value={otp}
                 onChange={(e) => setOtp(e.target.value)}
-                className="w-full bg-[#2a3245] border border-[#4a5568] focus:border-[var(--color-gold)] text-[var(--color-text-main)] px-5 py-4 outline-none transition-colors rounded-sm text-center tracking-widest text-lg"
+                className="w-full bg-[var(--color-main-bg)] border border-[var(--color-border)] focus:border-[var(--color-gold)] text-[var(--color-text-main)] px-5 py-4 outline-none transition-colors rounded-sm text-center tracking-widest text-lg"
                 placeholder="XXXXXX"
                 maxLength={6}
               />
             </div>
             
             <div className="space-y-1">
-              <label className="text-[11px] uppercase tracking-[2px] text-[#aeb5c7] font-semibold ml-1">New Password</label>
+              <label className="text-[11px] uppercase tracking-[2px] text-[var(--color-text-secondary)] font-semibold ml-1">New Password</label>
               <input
                 type="password"
                 required
                 value={newPassword}
                 onChange={(e) => setNewPassword(e.target.value)}
-                className="w-full bg-[#2a3245] border border-[#4a5568] focus:border-[var(--color-gold)] text-[var(--color-text-main)] px-5 py-4 outline-none transition-colors rounded-sm"
+                className="w-full bg-[var(--color-main-bg)] border border-[var(--color-border)] focus:border-[var(--color-gold)] text-[var(--color-text-main)] px-5 py-4 outline-none transition-colors rounded-sm"
                 placeholder="Enter new password"
               />
             </div>
@@ -137,7 +137,7 @@ const ForgotPassword = () => {
             <div className="pt-2">
               <AnimatedButton 
                 type="submit" 
-                className="w-full justify-center py-4 bg-[var(--color-gold)] hover:bg-[#a38855] text-[var(--color-text-main)] font-semibold tracking-wider text-sm shadow-[0_0_15px_rgba(182,154,97,0.3)] hover:shadow-[0_0_25px_rgba(182,154,97,0.5)] transition-all duration-300"
+                className="w-full justify-center py-4 bg-[var(--color-gold)] hover:bg-[var(--color-gold-light)] text-[var(--color-text-main)] font-semibold tracking-wider text-sm shadow-[0_0_15px_rgba(182,154,97,0.3)] hover:shadow-[0_0_25px_rgba(182,154,97,0.5)] transition-all duration-300"
                 disabled={isSubmitting}
               >
                 {isSubmitting ? 'RESETTING...' : 'RESET PASSWORD'}
@@ -152,7 +152,7 @@ const ForgotPassword = () => {
                   setSuccessMsg(null);
                   setError(null);
                 }}
-                className="text-sm text-[#aeb5c7] hover:text-[var(--color-gold)] transition-colors"
+                className="text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-gold)] transition-colors"
               >
                 Go back
               </button>
@@ -160,7 +160,7 @@ const ForgotPassword = () => {
           </form>
         )}
 
-        <div className="mt-8 text-center text-[#aeb5c7] text-sm relative z-10">
+        <div className="mt-8 text-center text-[var(--color-text-secondary)] text-sm relative z-10">
           <p>
             Remember your password?{' '}
             <Link to="/login" className="text-[var(--color-gold)] hover:text-[var(--color-text-main)] transition-colors font-medium ml-1">
