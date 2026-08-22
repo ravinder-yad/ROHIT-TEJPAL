@@ -20,7 +20,7 @@ const ShopByCollection = () => {
   ];
 
   return (
-    <section className="py-24 md:py-32 bg-[var(--color-primary-dark)]">
+    <section className="py-24 md:py-32 bg-[var(--color-main-bg)]">
       <div className="container-max px-4 md:px-8">
         
         {/* Section Header */}
@@ -33,7 +33,7 @@ const ShopByCollection = () => {
             <span className="w-12 h-[1px] bg-[var(--color-gold)] opacity-40"></span>
           </div>
           
-          <h2 className="text-white text-3xl md:text-4xl lg:text-5xl font-serif font-light tracking-wide">
+          <h2 className="text-[var(--color-text-main)] text-3xl md:text-4xl lg:text-5xl font-serif font-light tracking-wide">
             EXPLORE OUR <span className="italic text-[var(--color-gold)] font-medium">COLLECTIONS</span>
           </h2>
         </div>
@@ -41,7 +41,7 @@ const ShopByCollection = () => {
         {/* Card Grid with Borders */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 max-w-5xl mx-auto">
           {curatedSelections.map((collection) => (
-            <div key={collection._id} className="group relative overflow-hidden border-[3px] border-white/20 hover:border-[var(--color-gold)]/50 transition-colors duration-500 h-[500px] md:h-[600px]">
+            <div key={collection._id} className="group relative overflow-hidden border-[3px] border-[var(--color-border)]/50 hover:border-[var(--color-gold)]/50 transition-colors duration-500 h-[500px] md:h-[600px]">
               
               {/* Image Container */}
               <div className="absolute inset-0 w-full h-full">
@@ -61,13 +61,13 @@ const ShopByCollection = () => {
                   {collection.subtitle}
                 </span>
                 
-                <h3 className="text-white text-2xl md:text-3xl font-serif font-light tracking-widest mb-6">
+                <h3 className="text-[var(--color-text-main)] text-2xl md:text-3xl font-serif font-light tracking-widest mb-6">
                   {collection.name}
                 </h3>
                 
                 <Link 
                   to="/products"
-                  className="inline-flex items-center gap-3 px-8 py-3 border border-white/30 text-white text-[11px] font-medium tracking-[0.2em] uppercase hover:bg-white hover:text-[var(--color-primary-dark)] transition-colors duration-300"
+                  className="inline-flex items-center gap-3 px-8 py-3 border border-[var(--color-border)]/30 text-[var(--color-text-main)] text-[11px] font-medium tracking-[0.2em] uppercase hover:bg-white hover:text-[var(--color-main-bg)] transition-colors duration-300"
                 >
                   <span>SHOP NOW</span>
                   <FiArrowRight className="w-4 h-4" />

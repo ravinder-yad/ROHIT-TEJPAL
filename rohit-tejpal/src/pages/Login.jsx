@@ -46,14 +46,14 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[var(--color-primary-dark)] py-20 flex items-center justify-center px-4">
+    <div className="min-h-screen bg-[var(--color-main-bg)] py-20 flex items-center justify-center px-4">
       <div className="max-w-md w-full bg-[#353f56] p-8 md:p-12 rounded-sm shadow-2xl relative overflow-hidden">
         {/* Decorative elements */}
         <div className="absolute top-0 right-0 w-32 h-32 bg-[var(--color-gold)] opacity-5 rounded-bl-full pointer-events-none"></div>
         <div className="absolute bottom-0 left-0 w-32 h-32 bg-[var(--color-gold)] opacity-5 rounded-tr-full pointer-events-none"></div>
 
         <div className="text-center mb-10 relative z-10">
-          <h1 className="text-3xl md:text-4xl font-serif text-white mb-3">Welcome Back</h1>
+          <h1 className="text-3xl md:text-4xl font-serif text-[var(--color-text-main)] mb-3">Welcome Back</h1>
           <p className="text-[#aeb5c7] text-sm md:text-base font-light tracking-wide">
             {showOtpInput ? "Check your email for the verification code." : "Sign in to access your account and orders."}
           </p>
@@ -80,7 +80,7 @@ const Login = () => {
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full bg-[#2a3245] border border-[#4a5568] focus:border-[var(--color-gold)] text-white px-5 py-4 outline-none transition-colors rounded-sm"
+                className="w-full bg-[#2a3245] border border-[#4a5568] focus:border-[var(--color-gold)] text-[var(--color-text-main)] px-5 py-4 outline-none transition-colors rounded-sm"
                 placeholder="Enter your email"
               />
             </div>
@@ -88,7 +88,7 @@ const Login = () => {
             <div className="space-y-1">
               <div className="flex justify-between items-center ml-1">
                 <label className="text-[11px] uppercase tracking-[2px] text-[#aeb5c7] font-semibold">Password</label>
-                <Link to="/forgot-password" className="text-[11px] text-[var(--color-gold)] hover:text-white transition-colors">
+                <Link to="/forgot-password" className="text-[11px] text-[var(--color-gold)] hover:text-[var(--color-text-main)] transition-colors">
                   Forgot Password?
                 </Link>
               </div>
@@ -97,7 +97,7 @@ const Login = () => {
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full bg-[#2a3245] border border-[#4a5568] focus:border-[var(--color-gold)] text-white px-5 py-4 outline-none transition-colors rounded-sm"
+                className="w-full bg-[#2a3245] border border-[#4a5568] focus:border-[var(--color-gold)] text-[var(--color-text-main)] px-5 py-4 outline-none transition-colors rounded-sm"
                 placeholder="Enter your password"
               />
             </div>
@@ -105,7 +105,7 @@ const Login = () => {
             <div className="pt-2">
               <AnimatedButton 
                 type="submit" 
-                className="w-full justify-center py-4 bg-[var(--color-gold)] hover:bg-[#a38855] text-white font-semibold tracking-wider text-sm shadow-[0_0_15px_rgba(182,154,97,0.3)] hover:shadow-[0_0_25px_rgba(182,154,97,0.5)] transition-all duration-300"
+                className="w-full justify-center py-4 bg-[var(--color-gold)] hover:bg-[#a38855] text-[var(--color-text-main)] font-semibold tracking-wider text-sm shadow-[0_0_15px_rgba(182,154,97,0.3)] hover:shadow-[0_0_25px_rgba(182,154,97,0.5)] transition-all duration-300"
                 disabled={isSubmitting}
               >
                 {isSubmitting ? 'SENDING OTP...' : 'SIGN IN'}
@@ -121,7 +121,7 @@ const Login = () => {
                 required
                 value={otp}
                 onChange={(e) => setOtp(e.target.value)}
-                className="w-full bg-[#2a3245] border border-[#4a5568] focus:border-[var(--color-gold)] text-white px-5 py-4 outline-none transition-colors rounded-sm text-center tracking-widest text-lg"
+                className="w-full bg-[#2a3245] border border-[#4a5568] focus:border-[var(--color-gold)] text-[var(--color-text-main)] px-5 py-4 outline-none transition-colors rounded-sm text-center tracking-widest text-lg"
                 placeholder="XXXXXX"
                 maxLength={6}
               />
@@ -130,7 +130,7 @@ const Login = () => {
             <div className="pt-2">
               <AnimatedButton 
                 type="submit" 
-                className="w-full justify-center py-4 bg-[var(--color-gold)] hover:bg-[#a38855] text-white font-semibold tracking-wider text-sm shadow-[0_0_15px_rgba(182,154,97,0.3)] hover:shadow-[0_0_25px_rgba(182,154,97,0.5)] transition-all duration-300"
+                className="w-full justify-center py-4 bg-[var(--color-gold)] hover:bg-[#a38855] text-[var(--color-text-main)] font-semibold tracking-wider text-sm shadow-[0_0_15px_rgba(182,154,97,0.3)] hover:shadow-[0_0_25px_rgba(182,154,97,0.5)] transition-all duration-300"
                 disabled={isSubmitting}
               >
                 {isSubmitting ? 'VERIFYING...' : 'VERIFY OTP'}
@@ -156,7 +156,7 @@ const Login = () => {
         <div className="mt-8 text-center text-[#aeb5c7] text-sm relative z-10">
           <p>
             Don't have an account?{' '}
-            <Link to="/register" className="text-[var(--color-gold)] hover:text-white transition-colors font-medium ml-1">
+            <Link to="/register" className="text-[var(--color-gold)] hover:text-[var(--color-text-main)] transition-colors font-medium ml-1">
               Create Account
             </Link>
           </p>

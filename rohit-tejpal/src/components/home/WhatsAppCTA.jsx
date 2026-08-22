@@ -3,7 +3,7 @@ import AnimatedButton from '../ui/AnimatedButton';
 
 const WhatsAppCTA = () => {
   return (
-    <section className="bg-[var(--color-primary-dark)] text-white min-h-[300px] flex items-center justify-center px-4 relative overflow-hidden">
+    <section className="bg-[var(--color-main-bg)] text-[var(--color-text-main)] min-h-[300px] flex items-center justify-center px-4 relative overflow-hidden">
       <div className="container-max flex flex-col items-center text-center relative z-10 py-10">
         
         {/* Decorative Header */}
@@ -19,7 +19,7 @@ const WhatsAppCTA = () => {
           NEED HELP WITH AN <span className="italic text-[var(--color-gold)] font-medium">ORDER?</span>
         </h2>
         
-        <p className="text-gray-300 text-xs md:text-sm font-light mb-8 max-w-[450px] tracking-wide leading-relaxed">
+        <p className="text-[var(--color-text-secondary)] text-xs md:text-sm font-light mb-8 max-w-[450px] tracking-wide leading-relaxed">
           Our style advisors are here to help. Contact us on WhatsApp for personal assistance, sizing advice, or custom inquiries.
         </p>
 

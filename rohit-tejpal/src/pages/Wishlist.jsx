@@ -14,7 +14,7 @@ const Wishlist = () => {
   };
 
   return (
-    <div className="bg-[var(--color-primary-dark)] min-h-screen text-white font-sans pt-32 pb-24">
+    <div className="bg-[var(--color-main-bg)] min-h-screen text-[var(--color-text-main)] font-sans pt-32 pb-24">
       <div className="max-w-7xl mx-auto px-4 md:px-8">
         
         {/* Header */}
@@ -25,7 +25,7 @@ const Wishlist = () => {
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-light mb-6 tracking-wide">
             My <span className="italic text-[var(--color-gold)]">Wishlist</span>
           </h1>
-          <p className="text-gray-400 font-light text-sm md:text-base max-w-lg mx-auto leading-relaxed tracking-wider">
+          <p className="text-[var(--color-text-secondary)] font-light text-sm md:text-base max-w-lg mx-auto leading-relaxed tracking-wider">
             Curated masterpieces you've saved for later.
           </p>
         </div>
@@ -33,7 +33,7 @@ const Wishlist = () => {
         {wishlistItems.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
             {wishlistItems.map((item) => (
-              <div key={item.id} className="group relative flex flex-col bg-white/[0.02] border border-white/10 hover:border-[var(--color-gold)]/50 transition-all duration-500 overflow-hidden">
+              <div key={item.id} className="group relative flex flex-col bg-white/[0.02] border border-[var(--color-border)]/50 hover:border-[var(--color-gold)]/50 transition-all duration-500 overflow-hidden">
                 
                 {/* Image Container */}
                 <div className="relative aspect-[3/4] overflow-hidden">
@@ -49,14 +49,14 @@ const Wishlist = () => {
                   {/* Remove Button */}
                   <button 
                     onClick={() => removeFromWishlist(item.id)}
-                    className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center text-white hover:bg-red-500 hover:text-white transition-all duration-300 z-10"
+                    className="absolute top-4 right-4 w-10 h-10 rounded-full bg-[var(--color-alt-bg)] backdrop-blur-md flex items-center justify-center text-[var(--color-text-main)] hover:bg-red-500 hover:text-[var(--color-text-main)] transition-all duration-300 z-10"
                     title="Remove from Wishlist"
                   >
                     <FiTrash2 className="w-4 h-4" />
                   </button>
 
                   {!item.inStock && (
-                    <div className="absolute top-4 left-4 px-3 py-1 bg-black/80 backdrop-blur-md text-white text-[9px] uppercase tracking-widest font-bold border border-white/10">
+                    <div className="absolute top-4 left-4 px-3 py-1 bg-black/80 backdrop-blur-md text-[var(--color-text-main)] text-[9px] uppercase tracking-widest font-bold border border-[var(--color-border)]/50">
                       Out of Stock
                     </div>
                   )}
@@ -68,11 +68,11 @@ const Wishlist = () => {
                     {item.category}
                   </span>
                   <Link to={`/products/${item.category.toLowerCase().replace(/ /g, '-')}/${item.id}`} className="block mb-2">
-                    <h3 className="text-lg font-serif font-light text-white group-hover:text-[var(--color-gold)] transition-colors line-clamp-1">
+                    <h3 className="text-lg font-serif font-light text-[var(--color-text-main)] group-hover:text-[var(--color-gold)] transition-colors line-clamp-1">
                       {item.name}
                     </h3>
                   </Link>
-                  <p className="text-gray-400 text-sm mb-6 flex-1">
+                  <p className="text-[var(--color-text-secondary)] text-sm mb-6 flex-1">
                     ₹{item.price.toLocaleString('en-IN')}
                   </p>
 
@@ -91,12 +91,12 @@ const Wishlist = () => {
             ))}
           </div>
         ) : (
-          <div className="flex flex-col items-center justify-center py-20 text-center border border-white/10 bg-white/[0.02]">
-            <div className="w-20 h-20 rounded-full bg-white/5 border border-white/10 flex items-center justify-center mb-8">
-              <FiHeart className="w-8 h-8 text-gray-500" />
+          <div className="flex flex-col items-center justify-center py-20 text-center border border-[var(--color-border)]/50 bg-white/[0.02]">
+            <div className="w-20 h-20 rounded-full bg-[var(--color-alt-bg)] border border-[var(--color-border)]/50 flex items-center justify-center mb-8">
+              <FiHeart className="w-8 h-8 text-[var(--color-text-secondary)]" />
             </div>
             <h2 className="text-2xl font-serif font-light mb-4">Your wishlist is empty</h2>
-            <p className="text-gray-400 text-sm mb-8 max-w-md mx-auto">
+            <p className="text-[var(--color-text-secondary)] text-sm mb-8 max-w-md mx-auto">
               You haven't saved any items yet. Explore our collections and find something you love.
             </p>
             <AnimatedButton to="/collections" theme="gold">

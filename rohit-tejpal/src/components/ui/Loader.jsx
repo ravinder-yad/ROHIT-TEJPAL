@@ -2,7 +2,7 @@ import React from 'react';
 
 const Loader = ({ fullScreen = false }) => {
   const containerClass = fullScreen 
-    ? "fixed inset-0 z-50 flex items-center justify-center bg-[var(--color-primary-dark)]" 
+    ? "fixed inset-0 z-50 flex items-center justify-center bg-[var(--color-main-bg)]" 
     : "w-full flex justify-center items-center py-24 md:py-32";
 
   return (
@@ -23,7 +23,7 @@ const Loader = ({ fullScreen = false }) => {
           <span className="text-[var(--color-gold)] text-[10px] uppercase tracking-[0.4em] font-medium opacity-80 animate-pulse">
             Loading
           </span>
-          <div className="w-full h-[2px] bg-white/10 rounded-full overflow-hidden relative">
+          <div className="w-full h-[2px] bg-[var(--color-alt-bg)] rounded-full overflow-hidden relative">
             <div className="absolute top-0 left-0 h-full w-1/3 bg-[var(--color-gold)] rounded-full animate-[progress_1.5s_ease-in-out_infinite]"></div>
           </div>
         </div>

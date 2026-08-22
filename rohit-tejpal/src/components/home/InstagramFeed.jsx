@@ -11,7 +11,7 @@ const InstagramFeed = () => {
   const INSTAGRAM_URL = "https://www.instagram.com/rohit.tejpal_official?igsh=Y2p0YW9nY3lrNWR6";
 
   return (
-    <section className="py-24 md:py-32 bg-[var(--color-primary-dark)] border-t border-white/5">
+    <section className="py-24 md:py-32 bg-[var(--color-main-bg)] border-t border-[var(--color-border)]/30">
       <div className="container-max px-4 md:px-8">
         
         {/* Header */}
@@ -24,14 +24,14 @@ const InstagramFeed = () => {
             <span className="w-12 h-[1px] bg-[var(--color-gold)] opacity-40"></span>
           </div>
           
-          <h2 className="text-white text-3xl md:text-4xl lg:text-5xl font-serif font-light tracking-wide mb-6">
+          <h2 className="text-[var(--color-text-main)] text-3xl md:text-4xl lg:text-5xl font-serif font-light tracking-wide mb-6">
             FOLLOW <span className="italic text-[var(--color-gold)] font-medium">ROHIT TEJPAL</span>
           </h2>
           <a 
             href={INSTAGRAM_URL}
             target="_blank" 
             rel="noopener noreferrer"
-            className="text-gray-300 hover:text-[var(--color-gold)] transition-colors text-xs md:text-sm tracking-[0.2em] uppercase font-semibold"
+            className="text-[var(--color-text-secondary)] hover:text-[var(--color-gold)] transition-colors text-xs md:text-sm tracking-[0.2em] uppercase font-semibold"
           >
             @rohit.tejpal_official
           </a>
@@ -45,7 +45,7 @@ const InstagramFeed = () => {
               href={INSTAGRAM_URL}
               target="_blank" 
               rel="noopener noreferrer" 
-              className="relative aspect-square overflow-hidden group bg-white/5 block"
+              className="relative aspect-square overflow-hidden group bg-[var(--color-alt-bg)] block"
             >
               <img 
                 src={img} 
@@ -56,7 +56,7 @@ const InstagramFeed = () => {
               {/* Hover Overlay */}
               <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
                 <div className="transform translate-y-4 group-hover:translate-y-0 transition-all duration-500">
-                  <FaInstagram className="w-8 h-8 text-white" />
+                  <FaInstagram className="w-8 h-8 text-[var(--color-text-main)]" />
                 </div>
               </div>
             </a>
@@ -69,7 +69,7 @@ const InstagramFeed = () => {
             href={INSTAGRAM_URL}
             target="_blank" 
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-3 px-12 py-4 border border-[var(--color-gold)] text-[12px] font-semibold tracking-[0.2em] uppercase text-[var(--color-gold)] hover:bg-[var(--color-gold)] hover:text-[var(--color-primary-dark)] transition-all duration-300"
+            className="inline-flex items-center gap-3 px-12 py-4 border border-[var(--color-gold)] text-[12px] font-semibold tracking-[0.2em] uppercase text-[var(--color-gold)] hover:bg-[var(--color-gold)] hover:text-[var(--color-main-bg)] transition-all duration-300"
           >
             <FaInstagram className="w-4 h-4" />
             FOLLOW ON INSTAGRAM

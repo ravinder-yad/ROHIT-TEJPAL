@@ -16,20 +16,20 @@ const AnimatedButton = ({
 }) => {
   
   const themeClasses = {
-    dark: 'border-white/30 text-white hover:border-transparent',
-    light: 'border-[var(--color-primary-dark)]/30 text-[var(--color-primary-dark)] hover:border-transparent',
+    dark: 'border-[var(--color-border)]/30 text-[var(--color-text-main)] hover:border-transparent',
+    light: 'border-[var(--color-primary-dark)]/30 text-[var(--color-text-main)] hover:border-transparent',
     gold: 'border-[var(--color-gold)] text-[var(--color-gold)] hover:border-transparent'
   };
 
   const textHoverClasses = {
-    dark: 'group-hover/btn:text-[var(--color-primary-dark)]',
-    light: 'group-hover/btn:text-white',
-    gold: 'group-hover/btn:text-[var(--color-primary-dark)]'
+    dark: 'group-hover/btn:text-[var(--color-text-main)]',
+    light: 'group-hover/btn:text-[var(--color-text-main)]',
+    gold: 'group-hover/btn:text-[var(--color-text-main)]'
   };
 
   const bgHoverClasses = {
     dark: 'bg-[var(--color-gold)]',
-    light: 'bg-[var(--color-primary-dark)]',
+    light: 'bg-[var(--color-main-bg)]',
     gold: 'bg-[var(--color-gold)]'
   };
 

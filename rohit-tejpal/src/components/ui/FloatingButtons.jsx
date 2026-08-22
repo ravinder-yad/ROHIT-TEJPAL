@@ -31,7 +31,7 @@ const FloatingButtons = () => {
       {/* Scroll to Top Button */}
       <button 
         onClick={scrollToTop}
-        className={`w-12 h-12 rounded-full flex items-center justify-center bg-[var(--color-primary-dark)] text-[var(--color-gold)] border border-[var(--color-gold)] shadow-xl hover:bg-[var(--color-gold)] hover:text-[var(--color-primary-dark)] transition-all duration-300 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10 pointer-events-none'}`}
+        className={`w-12 h-12 rounded-full flex items-center justify-center bg-[var(--color-main-bg)] text-[var(--color-gold)] border border-[var(--color-gold)] shadow-xl hover:bg-[var(--color-gold)] hover:text-[var(--color-main-bg)] transition-all duration-300 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10 pointer-events-none'}`}
         aria-label="Scroll to top"
       >
         <FaArrowUp className="w-5 h-5" />
@@ -42,7 +42,7 @@ const FloatingButtons = () => {
         href="https://wa.me/919873737512" 
         target="_blank" 
         rel="noopener noreferrer"
-        className="w-12 h-12 rounded-full flex items-center justify-center bg-[#25D366] text-white shadow-xl hover:bg-[#128C7E] hover:scale-110 transition-all duration-300"
+        className="w-12 h-12 rounded-full flex items-center justify-center bg-[#25D366] text-[var(--color-text-main)] shadow-xl hover:bg-[#128C7E] hover:scale-110 transition-all duration-300"
         aria-label="Chat on WhatsApp"
       >
         <FaWhatsapp className="w-7 h-7" />

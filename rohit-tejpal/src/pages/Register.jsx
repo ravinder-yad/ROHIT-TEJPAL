@@ -61,14 +61,14 @@ const Register = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[var(--color-primary-dark)] py-20 flex items-center justify-center px-4">
+    <div className="min-h-screen bg-[var(--color-main-bg)] py-20 flex items-center justify-center px-4">
       <div className="max-w-md w-full bg-[#353f56] p-8 md:p-12 rounded-sm shadow-2xl relative overflow-hidden">
         {/* Decorative elements */}
         <div className="absolute top-0 left-0 w-32 h-32 bg-[var(--color-gold)] opacity-5 rounded-br-full pointer-events-none"></div>
         <div className="absolute bottom-0 right-0 w-32 h-32 bg-[var(--color-gold)] opacity-5 rounded-tl-full pointer-events-none"></div>
 
         <div className="text-center mb-10 relative z-10">
-          <h1 className="text-3xl md:text-4xl font-serif text-white mb-3">Create Account</h1>
+          <h1 className="text-3xl md:text-4xl font-serif text-[var(--color-text-main)] mb-3">Create Account</h1>
           <p className="text-[#aeb5c7] text-sm md:text-base font-light tracking-wide">
             {showOtpInput ? "Check your email for the verification code." : "Join us to track orders and save your wishlist."}
           </p>
@@ -96,7 +96,7 @@ const Register = () => {
                 required
                 value={formData.name}
                 onChange={handleChange}
-                className="w-full bg-[#2a3245] border border-[#4a5568] focus:border-[var(--color-gold)] text-white px-5 py-3.5 outline-none transition-colors rounded-sm"
+                className="w-full bg-[#2a3245] border border-[#4a5568] focus:border-[var(--color-gold)] text-[var(--color-text-main)] px-5 py-3.5 outline-none transition-colors rounded-sm"
                 placeholder="Enter your full name"
               />
             </div>
@@ -109,7 +109,7 @@ const Register = () => {
                 required
                 value={formData.email}
                 onChange={handleChange}
-                className="w-full bg-[#2a3245] border border-[#4a5568] focus:border-[var(--color-gold)] text-white px-5 py-3.5 outline-none transition-colors rounded-sm"
+                className="w-full bg-[#2a3245] border border-[#4a5568] focus:border-[var(--color-gold)] text-[var(--color-text-main)] px-5 py-3.5 outline-none transition-colors rounded-sm"
                 placeholder="Enter your email"
               />
             </div>
@@ -129,7 +129,7 @@ const Register = () => {
                   const value = e.target.value.replace(/\D/g, '');
                   setFormData({ ...formData, phone: value });
                 }}
-                className="w-full bg-[#2a3245] border border-[#4a5568] focus:border-[var(--color-gold)] text-white px-5 py-3.5 outline-none transition-colors rounded-sm"
+                className="w-full bg-[#2a3245] border border-[#4a5568] focus:border-[var(--color-gold)] text-[var(--color-text-main)] px-5 py-3.5 outline-none transition-colors rounded-sm"
                 placeholder="Enter your 10-digit mobile number"
               />
             </div>
@@ -142,7 +142,7 @@ const Register = () => {
                 required
                 value={formData.password}
                 onChange={handleChange}
-                className="w-full bg-[#2a3245] border border-[#4a5568] focus:border-[var(--color-gold)] text-white px-5 py-3.5 outline-none transition-colors rounded-sm"
+                className="w-full bg-[#2a3245] border border-[#4a5568] focus:border-[var(--color-gold)] text-[var(--color-text-main)] px-5 py-3.5 outline-none transition-colors rounded-sm"
                 placeholder="Create a password"
               />
             </div>
@@ -155,7 +155,7 @@ const Register = () => {
                 required
                 value={formData.confirmPassword}
                 onChange={handleChange}
-                className="w-full bg-[#2a3245] border border-[#4a5568] focus:border-[var(--color-gold)] text-white px-5 py-3.5 outline-none transition-colors rounded-sm"
+                className="w-full bg-[#2a3245] border border-[#4a5568] focus:border-[var(--color-gold)] text-[var(--color-text-main)] px-5 py-3.5 outline-none transition-colors rounded-sm"
                 placeholder="Confirm your password"
               />
             </div>
@@ -163,7 +163,7 @@ const Register = () => {
             <div className="pt-4">
               <AnimatedButton 
                 type="submit" 
-                className="w-full justify-center py-4 bg-[var(--color-gold)] hover:bg-[#a38855] text-white font-semibold tracking-wider text-sm shadow-[0_0_15px_rgba(182,154,97,0.3)] hover:shadow-[0_0_25px_rgba(182,154,97,0.5)] transition-all duration-300"
+                className="w-full justify-center py-4 bg-[var(--color-gold)] hover:bg-[#a38855] text-[var(--color-text-main)] font-semibold tracking-wider text-sm shadow-[0_0_15px_rgba(182,154,97,0.3)] hover:shadow-[0_0_25px_rgba(182,154,97,0.5)] transition-all duration-300"
                 disabled={isSubmitting}
               >
                 {isSubmitting ? 'SENDING OTP...' : 'CREATE ACCOUNT'}
@@ -179,7 +179,7 @@ const Register = () => {
                 required
                 value={otp}
                 onChange={(e) => setOtp(e.target.value)}
-                className="w-full bg-[#2a3245] border border-[#4a5568] focus:border-[var(--color-gold)] text-white px-5 py-4 outline-none transition-colors rounded-sm text-center tracking-widest text-lg"
+                className="w-full bg-[#2a3245] border border-[#4a5568] focus:border-[var(--color-gold)] text-[var(--color-text-main)] px-5 py-4 outline-none transition-colors rounded-sm text-center tracking-widest text-lg"
                 placeholder="XXXXXX"
                 maxLength={6}
               />
@@ -188,7 +188,7 @@ const Register = () => {
             <div className="pt-2">
               <AnimatedButton 
                 type="submit" 
-                className="w-full justify-center py-4 bg-[var(--color-gold)] hover:bg-[#a38855] text-white font-semibold tracking-wider text-sm shadow-[0_0_15px_rgba(182,154,97,0.3)] hover:shadow-[0_0_25px_rgba(182,154,97,0.5)] transition-all duration-300"
+                className="w-full justify-center py-4 bg-[var(--color-gold)] hover:bg-[#a38855] text-[var(--color-text-main)] font-semibold tracking-wider text-sm shadow-[0_0_15px_rgba(182,154,97,0.3)] hover:shadow-[0_0_25px_rgba(182,154,97,0.5)] transition-all duration-300"
                 disabled={isSubmitting}
               >
                 {isSubmitting ? 'VERIFYING...' : 'VERIFY OTP'}
@@ -214,7 +214,7 @@ const Register = () => {
         <div className="mt-8 text-center text-[#aeb5c7] text-sm relative z-10">
           <p>
             Already have an account?{' '}
-            <Link to="/login" className="text-[var(--color-gold)] hover:text-white transition-colors font-medium ml-1">
+            <Link to="/login" className="text-[var(--color-gold)] hover:text-[var(--color-text-main)] transition-colors font-medium ml-1">
               Sign In
             </Link>
           </p>

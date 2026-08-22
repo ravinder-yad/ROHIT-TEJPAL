@@ -1,20 +1,24 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary-dark: #2A3245;
-  --color-deep-navy: #2A3245;
-  --color-ivory: #F7F3EA;
-  --color-warm-beige: #E8DED0;
-  --color-burgundy: #6F3037;
-  --color-muted-sage: #9BA394;
-  --color-gold: #B69A61;
-  --color-border: #E5E0D6;
-  --color-whatsapp: #16A34A;
+  --color-main-bg: #FEFBF5;
+  --color-alt-bg: #FAF6EE;
+  --color-text-main: #2B313E;
+  --color-text-secondary: #747069;
+  --color-gold: #A87B5C;
+  --color-gold-light: #C8A184;
+  --color-border: #D8BE9D;
+  --color-whatsapp: #2ED769;
+  
+  /* Keep old variables temporarily just in case they are hardcoded somewhere, mapped to new values */
+  --color-primary-dark: #FEFBF5;
+  --color-deep-navy: #2B313E;
+  --color-ivory: #FEFBF5;
 }
 
 @layer base {
   body {
-    @apply bg-[var(--color-ivory)] text-[#1D2735] antialiased;
+    @apply bg-[var(--color-main-bg)] text-[var(--color-text-main)] antialiased;
   }
 }
 

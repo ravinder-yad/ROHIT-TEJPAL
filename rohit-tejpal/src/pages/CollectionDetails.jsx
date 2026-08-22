@@ -66,9 +66,9 @@ const CollectionDetails = () => {
 
   if (error || !collection) {
     return (
-      <div className="bg-[var(--color-primary-dark)] min-h-screen pt-32 pb-16 px-4 text-center">
-        <h2 className="text-2xl font-serif text-white mb-4">COLLECTION NOT FOUND</h2>
-        <p className="text-gray-400 mb-8 font-light">The collection you are looking for does not exist.</p>
+      <div className="bg-[var(--color-main-bg)] min-h-screen pt-32 pb-16 px-4 text-center">
+        <h2 className="text-2xl font-serif text-[var(--color-text-main)] mb-4">COLLECTION NOT FOUND</h2>
+        <p className="text-[var(--color-text-secondary)] mb-8 font-light">The collection you are looking for does not exist.</p>
         <AnimatedButton to="/collections" theme="gold">
           VIEW ALL COLLECTIONS
         </AnimatedButton>
@@ -77,11 +77,11 @@ const CollectionDetails = () => {
   }
 
   return (
-    <div className="bg-[var(--color-primary-dark)] min-h-screen">
+    <div className="bg-[var(--color-main-bg)] min-h-screen">
       
       {/* Editorial Hero Header */}
       <section 
-        className="relative border-b border-white/10 flex flex-col items-center justify-center text-center px-4 py-16 md:py-24 min-h-[300px]"
+        className="relative border-b border-[var(--color-border)]/50 flex flex-col items-center justify-center text-center px-4 py-16 md:py-24 min-h-[300px]"
       >
         {/* Background Image if available */}
         {collection.image && (
@@ -91,16 +91,16 @@ const CollectionDetails = () => {
             {/* Full uncropped image */}
             <img src={collection.image} alt={collection.name} className="absolute inset-0 w-full h-full object-contain opacity-60" />
             
-            <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-primary-dark)] via-[var(--color-primary-dark)]/40 to-transparent"></div>
+            <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-main-bg)] via-[var(--color-main-bg)]/60 to-transparent"></div>
           </div>
         )}
         
         <div className="relative z-10">
-          <h1 className="text-white text-4xl md:text-5xl lg:text-6xl font-serif font-light tracking-wide mb-4 uppercase">
+          <h1 className="text-[var(--color-text-main)] text-4xl md:text-5xl lg:text-6xl font-serif font-light tracking-wide mb-4 uppercase">
             {collection.name}
           </h1>
           {collection.description && (
-            <p className="text-gray-300 text-sm md:text-base font-light tracking-widest uppercase mb-2 max-w-2xl mx-auto">
+            <p className="text-[var(--color-text-secondary)] text-sm md:text-base font-light tracking-widest uppercase mb-2 max-w-2xl mx-auto">
               {collection.description}
             </p>
           )}
@@ -118,14 +118,14 @@ const CollectionDetails = () => {
         <Breadcrumbs items={breadcrumbItems} />
 
         {/* Product Toolbar */}
-        <div className="flex items-center justify-between mb-8 pb-4 border-b border-white/10 mt-8">
-          <span className="text-white text-xs font-bold tracking-widest uppercase">
+        <div className="flex items-center justify-between mb-8 pb-4 border-b border-[var(--color-border)]/50 mt-8">
+          <span className="text-[var(--color-text-main)] text-xs font-bold tracking-widest uppercase">
             {products.length} PRODUCTS
           </span>
           
           <div className="relative">
             <button 
-              className="flex items-center gap-2 text-white text-xs font-bold tracking-widest uppercase hover:text-[var(--color-gold)] transition-colors"
+              className="flex items-center gap-2 text-[var(--color-text-main)] text-xs font-bold tracking-widest uppercase hover:text-[var(--color-gold)] transition-colors"
               onClick={() => setIsSortingOpen(!isSortingOpen)}
             >
               SORT BY
@@ -133,11 +133,11 @@ const CollectionDetails = () => {
             </button>
             
             {isSortingOpen && (
-              <div className="absolute right-0 top-full mt-2 w-48 bg-white shadow-xl border border-gray-100 z-30">
+              <div className="absolute right-0 top-full mt-2 w-48 bg-[var(--color-alt-bg)] shadow-xl border border-[var(--color-border)]/50 z-30">
                 <ul className="py-2">
                   {['Newest', 'Price: Low to High', 'Price: High to Low', 'Name: A-Z'].map(sort => (
                     <li key={sort}>
-                      <button className="w-full text-left px-4 py-2 text-xs uppercase tracking-wider text-gray-600 hover:bg-[#F7F3EA] hover:text-[var(--color-gold)] transition-colors">
+                      <button className="w-full text-left px-4 py-2 text-xs uppercase tracking-wider text-[var(--color-text-secondary)] hover:bg-[var(--color-main-bg)] hover:text-[var(--color-gold)] transition-colors">
                         {sort}
                       </button>
                     </li>
@@ -163,7 +163,7 @@ const CollectionDetails = () => {
                 <button 
                   onClick={() => handlePageChange(Math.max(1, currentPage - 1))}
                   disabled={currentPage === 1}
-                  className="w-10 h-10 flex items-center justify-center border border-white/20 text-white hover:border-[var(--color-gold)] hover:text-[var(--color-gold)] disabled:opacity-30 disabled:hover:border-white/20 disabled:hover:text-white transition-colors"
+                  className="w-10 h-10 flex items-center justify-center border border-[var(--color-border)]/50 text-[var(--color-text-main)] hover:border-[var(--color-gold)] hover:text-[var(--color-gold)] disabled:opacity-30 disabled:hover:border-[var(--color-border)]/50 disabled:hover:text-[var(--color-text-main)] transition-colors"
                 >
                   &larr;
                 </button>
@@ -176,8 +176,8 @@ const CollectionDetails = () => {
                       onClick={() => handlePageChange(pageNumber)}
                       className={`w-10 h-10 flex items-center justify-center text-sm font-medium transition-colors ${
                         currentPage === pageNumber
-                          ? 'bg-[var(--color-gold)] text-[var(--color-primary-dark)] border border-[var(--color-gold)]'
-                          : 'border border-white/20 text-white hover:border-[var(--color-gold)] hover:text-[var(--color-gold)]'
+                          ? 'bg-[var(--color-gold)] text-[var(--color-main-bg)] border border-[var(--color-gold)]'
+                          : 'border border-[var(--color-border)]/50 text-[var(--color-text-main)] hover:border-[var(--color-gold)] hover:text-[var(--color-gold)]'
                       }`}
                     >
                       {pageNumber}
@@ -188,7 +188,7 @@ const CollectionDetails = () => {
                 <button 
                   onClick={() => handlePageChange(Math.min(totalPages, currentPage + 1))}
                   disabled={currentPage === totalPages}
-                  className="w-10 h-10 flex items-center justify-center border border-white/20 text-white hover:border-[var(--color-gold)] hover:text-[var(--color-gold)] disabled:opacity-30 disabled:hover:border-white/20 disabled:hover:text-white transition-colors"
+                  className="w-10 h-10 flex items-center justify-center border border-[var(--color-border)]/50 text-[var(--color-text-main)] hover:border-[var(--color-gold)] hover:text-[var(--color-gold)] disabled:opacity-30 disabled:hover:border-[var(--color-border)]/50 disabled:hover:text-[var(--color-text-main)] transition-colors"
                 >
                   &rarr;
                 </button>
@@ -197,11 +197,11 @@ const CollectionDetails = () => {
           </>
         ) : (
           /* Empty State */
-          <div className="flex flex-col items-center justify-center py-32 text-center border border-white/5 bg-white/5 rounded-sm">
-            <h2 className="text-2xl md:text-3xl font-serif text-white mb-4">
+          <div className="flex flex-col items-center justify-center py-32 text-center border border-[var(--color-border)]/30 bg-[var(--color-alt-bg)] rounded-sm">
+            <h2 className="text-2xl md:text-3xl font-serif text-[var(--color-text-main)] mb-4">
               NO PRODUCTS FOUND
             </h2>
-            <p className="text-gray-400 mb-8 font-light">
+            <p className="text-[var(--color-text-secondary)] mb-8 font-light">
               We are currently updating this collection. Check back soon.
             </p>
             <AnimatedButton to="/products" theme="gold">

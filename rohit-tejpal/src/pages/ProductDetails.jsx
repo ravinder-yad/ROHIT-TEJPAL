@@ -52,8 +52,8 @@ const ProductDetails = () => {
   if (error || !product) {
     return (
       <div className="min-h-[60vh] flex flex-col items-center justify-center text-center px-4">
-        <h1 className="text-3xl font-serif text-[var(--color-primary-dark)] mb-4">Product Not Found</h1>
-        <Link to="/products" className="px-8 py-3 bg-[var(--color-primary-dark)] text-white text-[11px] font-bold tracking-[0.2em] uppercase hover:bg-[var(--color-gold)] transition-colors">
+        <h1 className="text-3xl font-serif text-[var(--color-main-bg)] mb-4">Product Not Found</h1>
+        <Link to="/products" className="px-8 py-3 bg-[var(--color-main-bg)] text-[var(--color-text-main)] text-[11px] font-bold tracking-[0.2em] uppercase hover:bg-[var(--color-gold)] transition-colors">
           RETURN TO SHOP
         </Link>
       </div>
@@ -87,7 +87,7 @@ const ProductDetails = () => {
   }
 
   return (
-    <div className="bg-[var(--color-primary-dark)] min-h-screen py-12">
+    <div className="bg-[var(--color-main-bg)] min-h-screen py-12">
       <div className="container-max px-4 md:px-8">
         
         <Breadcrumbs items={breadcrumbItems} />
@@ -97,14 +97,14 @@ const ProductDetails = () => {
           {/* Left: Image Gallery */}
           <div className={`w-full lg:w-3/5 grid ${availableImages.length > 1 ? 'grid-cols-2' : 'grid-cols-1'} gap-4 md:gap-6`}>
             {availableImages.map((imgObj, idx) => (
-              <div key={idx} className="relative block overflow-hidden rounded-sm bg-white/5 group">
+              <div key={idx} className="relative block overflow-hidden rounded-sm bg-[var(--color-alt-bg)] group">
                 <img 
                   src={imgObj.src} 
                   alt={`${product.name} ${imgObj.label}`}
                   className="w-full h-auto object-cover object-top transition-transform duration-[1500ms] ease-out group-hover:scale-105"
                 />
                 {availableImages.length > 1 && (
-                  <div className="absolute bottom-4 right-4 bg-black/50 backdrop-blur-md px-3 py-1.5 text-[10px] font-bold tracking-widest text-white shadow-sm uppercase opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <div className="absolute bottom-4 right-4 bg-[var(--color-main-bg)]/90 backdrop-blur-md px-3 py-1.5 text-[10px] font-bold tracking-widest text-[var(--color-text-main)] shadow-sm uppercase opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     {imgObj.label}
                   </div>
                 )}
@@ -115,21 +115,21 @@ const ProductDetails = () => {
           {/* Right: Product Info */}
           <div className="w-full lg:w-2/5 flex flex-col">
             <div className="sticky top-32">
-              <span className="text-gray-400 text-[11px] uppercase tracking-[0.2em] font-bold mb-4 block">
+              <span className="text-[var(--color-text-secondary)] text-[11px] uppercase tracking-[0.2em] font-bold mb-4 block">
                 {displayCategory}
               </span>
               
-              <h1 className="text-3xl md:text-4xl lg:text-5xl font-serif text-white mb-6 leading-tight">
+              <h1 className="text-3xl md:text-4xl lg:text-5xl font-serif text-[var(--color-text-main)] mb-6 leading-tight">
                 {product.name}
               </h1>
               
               <div className="flex items-start justify-between gap-4">
-                <p className="text-xl md:text-2xl text-gray-300 font-medium">
+                <p className="text-xl md:text-2xl text-[var(--color-text-secondary)] font-medium">
                   {product.price}
                 </p>
                 <button 
                   onClick={() => toggleWishlist(product)}
-                  className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-white hover:border-[var(--color-gold)] hover:text-[var(--color-gold)] transition-colors"
+                  className="w-12 h-12 rounded-full border border-[var(--color-border)]/50 flex items-center justify-center text-[var(--color-text-main)] hover:border-[var(--color-gold)] hover:text-[var(--color-gold)] transition-colors"
                 >
                   <FiHeart className={`w-5 h-5 ${isInWishlist(product._id || product.id) ? 'fill-[var(--color-gold)] text-[var(--color-gold)]' : ''}`} />
                 </button>
@@ -139,7 +139,7 @@ const ProductDetails = () => {
                 <button 
                   onClick={handleAddToCart}
                   disabled={product.inStock === false}
-                  className="flex-1 bg-[var(--color-gold)] text-[var(--color-primary-dark)] text-xs font-bold uppercase tracking-widest py-4 px-8 rounded-sm hover:bg-white transition-colors duration-300 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed group"
+                  className="flex-1 bg-[var(--color-gold)] text-[var(--color-main-bg)] text-xs font-bold uppercase tracking-widest py-4 px-8 rounded-sm hover:bg-[var(--color-text-main)] transition-colors duration-300 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed group"
                 >
                   <FiShoppingBag className="w-4 h-4" />
                   {product.inStock !== false ? 'Add to Bag' : 'Out of Stock'}
@@ -150,7 +150,7 @@ const ProductDetails = () => {
                     navigate('/dashboard/cart');
                   }}
                   disabled={product.inStock === false}
-                  className="flex-1 bg-white border border-white text-[var(--color-primary-dark)] text-xs font-bold uppercase tracking-widest py-4 px-8 rounded-sm hover:bg-transparent hover:text-white hover:border-white transition-colors duration-300 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="flex-1 bg-white border border-[var(--color-border)] text-[var(--color-main-bg)] text-xs font-bold uppercase tracking-widest py-4 px-8 rounded-sm hover:bg-transparent hover:text-[var(--color-text-main)] hover:border-[var(--color-border)] transition-colors duration-300 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   Buy Now
                 </button>
@@ -159,8 +159,8 @@ const ProductDetails = () => {
               {/* Sizes */}
               <div className="mb-10">
                 <div className="flex items-center justify-between mb-4">
-                  <span className="text-xs font-bold tracking-widest text-white uppercase">Select Size</span>
-                  <button className="text-xs text-gray-400 underline hover:text-[var(--color-gold)] transition-colors">Size Guide</button>
+                  <span className="text-xs font-bold tracking-widest text-[var(--color-text-main)] uppercase">Select Size</span>
+                  <button className="text-xs text-[var(--color-text-secondary)] underline hover:text-[var(--color-gold)] transition-colors">Size Guide</button>
                 </div>
                 <div className="flex flex-wrap gap-3">
                   {(product.sizes || ['S', 'M', 'L']).map((size, index) => (
@@ -169,8 +169,8 @@ const ProductDetails = () => {
                       onClick={() => setSelectedSize(size)}
                       className={`min-w-[3rem] px-4 py-3 border text-sm font-medium transition-colors rounded-sm ${
                         selectedSize === size 
-                          ? 'border-[var(--color-gold)] bg-[var(--color-gold)] text-[var(--color-primary-dark)]' 
-                          : 'border-white/20 text-white hover:border-[var(--color-gold)]'
+                          ? 'border-[var(--color-gold)] bg-[var(--color-gold)] text-[var(--color-main-bg)]' 
+                          : 'border-[var(--color-border)]/50 text-[var(--color-text-main)] hover:border-[var(--color-gold)]'
                       }`}
                     >
                       {size}
@@ -208,12 +208,12 @@ const ProductDetails = () => {
               </div>
 
               {/* Product Description */}
-              <div className="border-t border-white/10 pt-8 mt-8">
-                <h3 className="text-xs font-bold tracking-widest text-white uppercase mb-4">Description</h3>
-                <p className="text-sm text-gray-300 font-light leading-relaxed mb-6">
+              <div className="border-t border-[var(--color-border)]/50 pt-8 mt-8">
+                <h3 className="text-xs font-bold tracking-widest text-[var(--color-text-main)] uppercase mb-4">Description</h3>
+                <p className="text-sm text-[var(--color-text-secondary)] font-light leading-relaxed mb-6">
                   {product.description || "Discover refined Indian ethnic wear crafted with distinctive prints and thoughtful details. This beautiful piece features signature Rohit Tejpal craftsmanship, designed for both comfort and timeless elegance."}
                 </p>
-                <ul className="text-sm text-gray-300 font-light space-y-2">
+                <ul className="text-sm text-[var(--color-text-secondary)] font-light space-y-2">
                   <li>• Premium Fabric Quality</li>
                   <li>• Signature Prints</li>
                   <li>• Handcrafted Details</li>

@@ -26,7 +26,7 @@ const About = () => {
   }, []);
 
   return (
-    <div className="bg-[var(--color-primary-dark)] min-h-screen text-white font-sans selection:bg-[var(--color-gold)] selection:text-[var(--color-primary-dark)] relative">
+    <div className="bg-[var(--color-main-bg)] min-h-screen text-[var(--color-text-main)] font-sans selection:bg-[var(--color-gold)] selection:text-[var(--color-main-bg)] relative">
       
       {/* 1. Hero Section */}
       <section className="relative h-[60vh] md:h-[75vh] w-full flex items-center justify-center text-center overflow-hidden">
@@ -36,21 +36,21 @@ const About = () => {
             alt="Craftsmanship" 
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-black/40"></div>
+          <div className="absolute inset-0 bg-[var(--color-main-bg)]/40"></div>
         </div>
         
         <div className="relative z-10 px-4 w-full flex flex-col items-center">
           <span className="text-[var(--color-gold)] text-xs md:text-sm font-bold tracking-[0.4em] uppercase mb-8 block">
             Our Story
           </span>
-          <h1 className="text-white text-5xl md:text-7xl font-serif font-light mb-8 leading-tight">
+          <h1 className="text-[var(--color-text-main)] text-5xl md:text-7xl font-serif font-light mb-8 leading-tight">
             Crafted With Intention
           </h1>
           <p className="text-gray-200 text-sm md:text-lg font-light tracking-wide max-w-xl mx-auto leading-relaxed">
             Thoughtful silhouettes. Refined craftsmanship.
           </p>
           
-          <div className="mt-20 text-white/50 animate-bounce flex flex-col items-center">
+          <div className="mt-20 text-[var(--color-text-main)]/50 animate-bounce flex flex-col items-center">
             <span className="text-[10px] uppercase tracking-[0.2em] mb-2">Explore</span>
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
@@ -60,7 +60,7 @@ const About = () => {
       </section>
 
       {/* 2. Brand Introduction */}
-      <section className="py-24 md:py-40 px-4 bg-[var(--color-primary-dark)]">
+      <section className="py-24 md:py-40 px-4 bg-[var(--color-main-bg)]">
         <div className="w-full px-2 lg:px-12 2xl:px-24 mx-auto">
           <div className="flex flex-col md:flex-row gap-16 lg:gap-32 items-start">
             
@@ -72,21 +72,21 @@ const About = () => {
                   Our Story
                 </span>
               </div>
-              <h2 className="text-4xl md:text-5xl lg:text-[56px] font-serif font-light text-white leading-[1.2] tracking-tight">
+              <h2 className="text-4xl md:text-5xl lg:text-[56px] font-serif font-light text-[var(--color-text-main)] leading-[1.2] tracking-tight">
                 A modern expression of Indian fashion.
               </h2>
             </div>
 
             {/* Right */}
             <div className="w-full md:w-7/12 flex flex-col justify-center pt-2 md:pt-14 relative">
-              <div className="absolute left-[-2rem] md:left-[-4rem] top-0 bottom-0 w-[1px] bg-white/10 hidden md:block"></div>
+              <div className="absolute left-[-2rem] md:left-[-4rem] top-0 bottom-0 w-[1px] bg-[var(--color-alt-bg)] hidden md:block"></div>
               
-              <p className="text-gray-300 text-lg md:text-2xl font-light leading-relaxed mb-10">
+              <p className="text-[var(--color-text-secondary)] text-lg md:text-2xl font-light leading-relaxed mb-10">
                 Rohit Tejpal is rooted in a vision of creating refined contemporary fashion with an emphasis on craftsmanship, fabric and timeless design.
               </p>
               
               <div className="pl-6 border-l-2 border-[var(--color-gold)]">
-                <p className="text-white text-base md:text-xl font-medium leading-relaxed italic">
+                <p className="text-[var(--color-text-main)] text-base md:text-xl font-medium leading-relaxed italic">
                   "Carefully crafted pieces made with attention to every single detail."
                 </p>
               </div>
@@ -97,7 +97,7 @@ const About = () => {
       </section>
 
       {/* 3. Craftsmanship Section */}
-      <section className="py-24 md:py-40 bg-[var(--color-primary-dark)] border-t border-white/10 relative overflow-hidden px-4">
+      <section className="py-24 md:py-40 bg-[var(--color-main-bg)] border-t border-[var(--color-border)]/50 relative overflow-hidden px-4">
         {/* Subtle background glow */}
         <div className="absolute top-1/2 left-0 w-96 h-96 bg-[var(--color-gold)]/5 rounded-full blur-[120px] -translate-y-1/2 -translate-x-1/2"></div>
         
@@ -113,30 +113,30 @@ const About = () => {
                 <div className="w-12 h-[1px] bg-[var(--color-gold)]"></div>
               </div>
               
-              <h2 className="text-4xl md:text-5xl lg:text-[64px] font-serif font-light text-white mb-8 leading-[1.1] tracking-tight">
+              <h2 className="text-4xl md:text-5xl lg:text-[64px] font-serif font-light text-[var(--color-text-main)] mb-8 leading-[1.1] tracking-tight">
                 The Art of Craft.
               </h2>
               
-              <p className="text-white font-medium text-xl md:text-2xl mb-6 leading-relaxed max-w-lg">
+              <p className="text-[var(--color-text-main)] font-medium text-xl md:text-2xl mb-6 leading-relaxed max-w-lg">
                 Every piece begins with <span className="text-[var(--color-gold)] italic font-serif">attention to detail.</span>
               </p>
               
-              <p className="text-gray-300 font-light text-lg leading-relaxed mb-16 max-w-xl">
+              <p className="text-[var(--color-text-secondary)] font-light text-lg leading-relaxed mb-16 max-w-xl">
                 From selecting the finest fabrics to the final finishing, each garment goes through a considered process where traditional craftsmanship meets contemporary design language.
               </p>
               
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-10">
-                <div className="border-t border-white/10 pt-6">
+                <div className="border-t border-[var(--color-border)]/50 pt-6">
                   <span className="text-[var(--color-gold)] font-serif text-3xl block mb-4 italic">01</span>
-                  <p className="text-xs uppercase tracking-[0.2em] font-bold text-white">Quality Fabrics</p>
+                  <p className="text-xs uppercase tracking-[0.2em] font-bold text-[var(--color-text-main)]">Quality Fabrics</p>
                 </div>
-                <div className="border-t border-white/10 pt-6">
+                <div className="border-t border-[var(--color-border)]/50 pt-6">
                   <span className="text-[var(--color-gold)] font-serif text-3xl block mb-4 italic">02</span>
-                  <p className="text-xs uppercase tracking-[0.2em] font-bold text-white">Thoughtful Design</p>
+                  <p className="text-xs uppercase tracking-[0.2em] font-bold text-[var(--color-text-main)]">Thoughtful Design</p>
                 </div>
-                <div className="border-t border-white/10 pt-6">
+                <div className="border-t border-[var(--color-border)]/50 pt-6">
                   <span className="text-[var(--color-gold)] font-serif text-3xl block mb-4 italic">03</span>
-                  <p className="text-xs uppercase tracking-[0.2em] font-bold text-white">Detailed Finishing</p>
+                  <p className="text-xs uppercase tracking-[0.2em] font-bold text-[var(--color-text-main)]">Detailed Finishing</p>
                 </div>
               </div>
             </div>
@@ -147,7 +147,7 @@ const About = () => {
                 {/* Elegant offset frame */}
                 <div className="absolute -inset-4 md:-inset-6 border border-[var(--color-gold)]/30 translate-x-3 translate-y-3 md:translate-x-6 md:translate-y-6"></div>
                 
-                <div className="relative aspect-[3/4] overflow-hidden bg-white/5 shadow-2xl">
+                <div className="relative aspect-[3/4] overflow-hidden bg-[var(--color-alt-bg)] shadow-2xl">
                   <img 
                     src="/about_craft.jpg" 
                     alt="The Art of Craft" 
@@ -164,7 +164,7 @@ const About = () => {
 
 
       {/* 5. Our Philosophy */}
-      <section className="py-32 md:py-48 px-4 bg-[var(--color-primary-dark)] text-center relative overflow-hidden border-t border-white/10">
+      <section className="py-32 md:py-48 px-4 bg-[var(--color-main-bg)] text-center relative overflow-hidden border-t border-[var(--color-border)]/50">
         {/* Decorative Vertical Lines */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1px] h-24 bg-gradient-to-b from-[var(--color-gold)]/50 to-transparent"></div>
         <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[1px] h-24 bg-gradient-to-t from-[var(--color-gold)]/50 to-transparent"></div>
@@ -179,20 +179,20 @@ const About = () => {
             OUR PHILOSOPHY
           </h2>
           
-          <h3 className="text-4xl md:text-6xl lg:text-[72px] font-serif font-light text-white leading-[1.1] tracking-tight mb-12 relative z-10">
+          <h3 className="text-4xl md:text-6xl lg:text-[72px] font-serif font-light text-[var(--color-text-main)] leading-[1.1] tracking-tight mb-12 relative z-10">
             <span className="block mb-3">Less noise.</span>
             <span className="block mb-3 text-[var(--color-gold)] italic">More intention.</span>
             <span className="block">Better design.</span>
           </h3>
           
-          <p className="text-gray-300 text-lg md:text-2xl font-light tracking-wide max-w-2xl mx-auto relative z-10 leading-relaxed">
+          <p className="text-[var(--color-text-secondary)] text-lg md:text-2xl font-light tracking-wide max-w-2xl mx-auto relative z-10 leading-relaxed">
             We believe fashion should feel considered, comfortable, and absolutely timeless.
           </p>
         </div>
       </section>
 
       {/* 6. Design Language (Editorial Image) */}
-      <section className="py-24 md:py-40 px-4 bg-[var(--color-primary-dark)] border-t border-white/10 overflow-hidden">
+      <section className="py-24 md:py-40 px-4 bg-[var(--color-main-bg)] border-t border-[var(--color-border)]/50 overflow-hidden">
         <div className="w-full px-2 lg:px-12 2xl:px-24 mx-auto">
           <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-0">
             
@@ -213,10 +213,10 @@ const About = () => {
 
             {/* Content (Right, overlapping slightly on desktop) */}
             <div className="w-full lg:w-1/2 lg:-ml-12 z-20 relative">
-              <div className="bg-[var(--color-primary-dark)]/95 backdrop-blur-md p-8 md:p-12 lg:p-16 shadow-2xl border border-white/5 relative">
+              <div className="bg-[var(--color-main-bg)]/95 backdrop-blur-md p-8 md:p-12 lg:p-16 shadow-2xl border border-[var(--color-border)]/30 relative">
                 
                 {/* Numbers accent */}
-                <div className="absolute top-0 right-0 w-24 h-24 bg-[var(--color-gold)]/5 flex items-center justify-center border-b border-l border-[var(--color-gold)]/10 text-white/20 font-serif text-4xl hidden sm:flex">
+                <div className="absolute top-0 right-0 w-24 h-24 bg-[var(--color-gold)]/5 flex items-center justify-center border-b border-l border-[var(--color-gold)]/10 text-[var(--color-text-main)]/20 font-serif text-4xl hidden sm:flex">
                   06
                 </div>
                 
@@ -227,12 +227,12 @@ const About = () => {
                   <div className="w-12 h-[1px] bg-[var(--color-gold)]"></div>
                 </div>
                 
-                <h2 className="text-4xl md:text-5xl lg:text-[56px] font-serif font-light text-white leading-[1.1] mb-8 tracking-tight">
+                <h2 className="text-4xl md:text-5xl lg:text-[56px] font-serif font-light text-[var(--color-text-main)] leading-[1.1] mb-8 tracking-tight">
                   Rooted in <span className="italic text-[var(--color-gold)]">tradition</span>,<br/>
                   designed for <span className="italic">today.</span>
                 </h2>
                 
-                <p className="text-gray-300 text-lg font-light leading-relaxed mb-12">
+                <p className="text-[var(--color-text-secondary)] text-lg font-light leading-relaxed mb-12">
                   Our collections are an ongoing exploration of modern elegance. We draw inspiration from classical Indian aesthetics, stripping away the excess to reveal the pure beauty of form, drape, and texture.
                 </p>
                 
@@ -247,47 +247,47 @@ const About = () => {
       </section>
 
       {/* 8. Our Values / Commitment */}
-      <section className="py-24 md:py-32 px-4 bg-white/5 border-t border-white/10">
+      <section className="py-24 md:py-32 px-4 bg-[var(--color-alt-bg)] border-t border-[var(--color-border)]/50">
         <div className="w-full px-2 lg:px-12 2xl:px-24 mx-auto">
           <div className="text-center mb-16 md:mb-24">
             <h2 className="text-[var(--color-gold)] text-xs uppercase tracking-[0.4em] font-bold mb-6">
               OUR COMMITMENT
             </h2>
-            <h3 className="text-4xl md:text-5xl lg:text-[56px] font-serif font-light text-white tracking-tight">
+            <h3 className="text-4xl md:text-5xl lg:text-[56px] font-serif font-light text-[var(--color-text-main)] tracking-tight">
               Attention to every detail.
             </h3>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
             {/* Value 1 */}
-            <div className="group bg-[var(--color-primary-dark)] p-10 lg:p-14 border border-white/10 hover:border-[var(--color-gold)]/50 transition-colors duration-500 relative overflow-hidden">
+            <div className="group bg-[var(--color-main-bg)] p-10 lg:p-14 border border-[var(--color-border)]/50 hover:border-[var(--color-gold)]/50 transition-colors duration-500 relative overflow-hidden">
               <div className="absolute top-0 right-0 w-24 h-24 bg-[var(--color-gold)]/5 rounded-bl-full group-hover:scale-150 transition-transform duration-700"></div>
               <span className="text-[var(--color-gold)] font-serif text-3xl mb-8 block italic">01</span>
-              <h4 className="text-sm uppercase tracking-[0.3em] font-bold text-white mb-6">QUALITY</h4>
+              <h4 className="text-sm uppercase tracking-[0.3em] font-bold text-[var(--color-text-main)] mb-6">QUALITY</h4>
               <div className="w-12 h-[1px] bg-white/20 mb-6 group-hover:bg-[var(--color-gold)] transition-colors duration-500"></div>
-              <p className="text-gray-400 text-base lg:text-lg font-light leading-relaxed">
+              <p className="text-[var(--color-text-secondary)] text-base lg:text-lg font-light leading-relaxed">
                 Thoughtful materials and finishing.
               </p>
             </div>
             
             {/* Value 2 */}
-            <div className="group bg-[var(--color-primary-dark)] p-10 lg:p-14 border border-white/10 hover:border-[var(--color-gold)]/50 transition-colors duration-500 relative overflow-hidden">
+            <div className="group bg-[var(--color-main-bg)] p-10 lg:p-14 border border-[var(--color-border)]/50 hover:border-[var(--color-gold)]/50 transition-colors duration-500 relative overflow-hidden">
               <div className="absolute top-0 right-0 w-24 h-24 bg-[var(--color-gold)]/5 rounded-bl-full group-hover:scale-150 transition-transform duration-700"></div>
               <span className="text-[var(--color-gold)] font-serif text-3xl mb-8 block italic">02</span>
-              <h4 className="text-sm uppercase tracking-[0.3em] font-bold text-white mb-6">DESIGN</h4>
+              <h4 className="text-sm uppercase tracking-[0.3em] font-bold text-[var(--color-text-main)] mb-6">DESIGN</h4>
               <div className="w-12 h-[1px] bg-white/20 mb-6 group-hover:bg-[var(--color-gold)] transition-colors duration-500"></div>
-              <p className="text-gray-400 text-base lg:text-lg font-light leading-relaxed">
+              <p className="text-[var(--color-text-secondary)] text-base lg:text-lg font-light leading-relaxed">
                 Modern yet timeless silhouettes.
               </p>
             </div>
             
             {/* Value 3 */}
-            <div className="group bg-[var(--color-primary-dark)] p-10 lg:p-14 border border-white/10 hover:border-[var(--color-gold)]/50 transition-colors duration-500 relative overflow-hidden">
+            <div className="group bg-[var(--color-main-bg)] p-10 lg:p-14 border border-[var(--color-border)]/50 hover:border-[var(--color-gold)]/50 transition-colors duration-500 relative overflow-hidden">
               <div className="absolute top-0 right-0 w-24 h-24 bg-[var(--color-gold)]/5 rounded-bl-full group-hover:scale-150 transition-transform duration-700"></div>
               <span className="text-[var(--color-gold)] font-serif text-3xl mb-8 block italic">03</span>
-              <h4 className="text-sm uppercase tracking-[0.3em] font-bold text-white mb-6">CONSISTENCY</h4>
+              <h4 className="text-sm uppercase tracking-[0.3em] font-bold text-[var(--color-text-main)] mb-6">CONSISTENCY</h4>
               <div className="w-12 h-[1px] bg-white/20 mb-6 group-hover:bg-[var(--color-gold)] transition-colors duration-500"></div>
-              <p className="text-gray-400 text-base lg:text-lg font-light leading-relaxed">
+              <p className="text-[var(--color-text-secondary)] text-base lg:text-lg font-light leading-relaxed">
                 A considered experience from creation to delivery.
               </p>
             </div>
@@ -296,24 +296,24 @@ const About = () => {
       </section>
 
       {/* 9. Brand Gallery */}
-      <section className="py-24 md:py-32 px-4 bg-[var(--color-primary-dark)] border-t border-white/10">
+      <section className="py-24 md:py-32 px-4 bg-[var(--color-main-bg)] border-t border-[var(--color-border)]/50">
         <div className="w-full px-2 lg:px-12 2xl:px-24 mx-auto">
           <div className="text-center mb-16">
             <span className="text-[var(--color-gold)] text-xs uppercase tracking-[0.4em] font-bold mb-4 block">
               VISUAL DIARY
             </span>
-            <h2 className="text-3xl md:text-5xl font-serif font-light text-white mb-4">
+            <h2 className="text-3xl md:text-5xl font-serif font-light text-[var(--color-text-main)] mb-4">
               The Collection
             </h2>
-            <p className="text-gray-400 font-light text-sm tracking-widest uppercase">Click to expand</p>
+            <p className="text-[var(--color-text-secondary)] font-light text-sm tracking-widest uppercase">Click to expand</p>
           </div>
           
           {loading ? (
             <div className="flex justify-center items-center h-48">
-              <div className="w-10 h-10 border-4 border-white/20 border-t-[var(--color-gold)] rounded-full animate-spin"></div>
+              <div className="w-10 h-10 border-4 border-[var(--color-border)]/50 border-t-[var(--color-gold)] rounded-full animate-spin"></div>
             </div>
           ) : galleryImages.length === 0 ? (
-            <div className="text-center py-10 text-gray-500 font-light">
+            <div className="text-center py-10 text-[var(--color-text-secondary)] font-light">
               Visual Diary is being curated.
             </div>
           ) : (
@@ -321,7 +321,7 @@ const About = () => {
               {galleryImages.map((img) => (
                 <div 
                   key={img._id}
-                  className={`${img.span} rounded-sm overflow-hidden border border-white/5 relative group cursor-zoom-in bg-white/5`}
+                  className={`${img.span} rounded-sm overflow-hidden border border-[var(--color-border)]/30 relative group cursor-zoom-in bg-[var(--color-alt-bg)]`}
                   onClick={() => setSelectedImage(img.imageUrl)}
                 >
                   <img 
@@ -330,8 +330,8 @@ const About = () => {
                     className={`w-full h-full object-cover ${img.aspect || ''} transition-transform duration-700 group-hover:scale-105`} 
                     loading="lazy"
                   />
-                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-500 flex items-center justify-center">
-                    <div className="w-12 h-12 rounded-full bg-black/50 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 backdrop-blur-md">
+                  <div className="absolute inset-0 bg-[var(--color-main-bg)]/0 group-hover:bg-[var(--color-main-bg)]/20 transition-colors duration-500 flex items-center justify-center">
+                    <div className="w-12 h-12 rounded-full bg-[var(--color-main-bg)]/50 text-[var(--color-text-main)] flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 backdrop-blur-md">
                       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
                       </svg>
@@ -345,16 +345,16 @@ const About = () => {
       </section>
 
       {/* 10. Final CTA */}
-      <section className="relative h-[300px] w-full flex items-center justify-center bg-[var(--color-primary-dark)] overflow-hidden border-t border-white/10">
+      <section className="relative h-[300px] w-full flex items-center justify-center bg-[var(--color-main-bg)] overflow-hidden border-t border-[var(--color-border)]/50">
         {/* Subtle decorative background */}
         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[var(--color-gold)]/5 to-transparent opacity-50"></div>
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-[1px] bg-gradient-to-r from-transparent via-[var(--color-gold)]/30 to-transparent"></div>
         
         <div className="relative z-10 text-center px-4 w-full">
-          <h2 className="text-4xl md:text-5xl font-serif font-light text-white mb-4 tracking-wide">
+          <h2 className="text-4xl md:text-5xl font-serif font-light text-[var(--color-text-main)] mb-4 tracking-wide">
             DISCOVER THE COLLECTION
           </h2>
-          <p className="text-gray-400 font-light text-base md:text-lg mb-10 italic">
+          <p className="text-[var(--color-text-secondary)] font-light text-base md:text-lg mb-10 italic">
             Explore pieces shaped by craftsmanship, fabric and contemporary design.
           </p>
           <AnimatedButton to="/products" theme="gold">
@@ -365,17 +365,17 @@ const About = () => {
       {/* Lightbox Modal */}
       {selectedImage && (
         <div 
-          className="fixed inset-0 z-[100] bg-black/95 flex items-center justify-center p-4 cursor-zoom-out backdrop-blur-sm"
+          className="fixed inset-0 z-[100] bg-[var(--color-main-bg)]/95 flex items-center justify-center p-4 cursor-zoom-out backdrop-blur-sm"
           onClick={() => setSelectedImage(null)}
         >
           <img 
             src={selectedImage} 
             alt="Expanded Gallery" 
-            className="max-w-full max-h-[90vh] object-contain cursor-default border border-white/10 shadow-2xl"
+            className="max-w-full max-h-[90vh] object-contain cursor-default border border-[var(--color-border)]/50 shadow-2xl"
             onClick={(e) => e.stopPropagation()} 
           />
           <button 
-            className="absolute top-6 right-6 text-white/70 hover:text-white transition-colors"
+            className="absolute top-6 right-6 text-[var(--color-text-main)]/70 hover:text-[var(--color-text-main)] transition-colors"
             onClick={() => setSelectedImage(null)}
           >
             <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">

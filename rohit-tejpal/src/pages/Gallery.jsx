@@ -27,18 +27,18 @@ const Gallery = () => {
   }, []);
 
   return (
-    <div className="bg-[var(--color-primary-dark)] min-h-screen text-white font-sans selection:bg-[var(--color-gold)] selection:text-[var(--color-primary-dark)]">
+    <div className="bg-[var(--color-main-bg)] min-h-screen text-[var(--color-text-main)] font-sans selection:bg-[var(--color-gold)] selection:text-[var(--color-main-bg)]">
       
       {/* Header */}
-      <section className="h-[300px] flex flex-col items-center justify-center px-4 text-center border-b border-white/10 pt-16">
+      <section className="h-[300px] flex flex-col items-center justify-center px-4 text-center border-b border-[var(--color-border)]/50 pt-16">
         <div className="w-full px-2 lg:px-12 2xl:px-24 mx-auto">
           <span className="text-[var(--color-gold)] text-xs uppercase tracking-[0.4em] font-bold mb-4 block">
             VISUAL DIARY
           </span>
-          <h1 className="text-4xl md:text-5xl font-serif font-light text-white mb-4 tracking-tight">
+          <h1 className="text-4xl md:text-5xl font-serif font-light text-[var(--color-text-main)] mb-4 tracking-tight">
             The Gallery
           </h1>
-          <p className="text-gray-400 font-light text-sm md:text-base max-w-2xl mx-auto italic">
+          <p className="text-[var(--color-text-secondary)] font-light text-sm md:text-base max-w-2xl mx-auto italic">
             A curated visual journey through our collections and craftsmanship.
           </p>
         </div>
@@ -51,7 +51,7 @@ const Gallery = () => {
           {loading ? (
             <Loader />
           ) : images.length === 0 ? (
-            <div className="text-center py-20 text-gray-500 font-light">
+            <div className="text-center py-20 text-[var(--color-text-secondary)] font-light">
               No gallery images found.
             </div>
           ) : (
@@ -69,7 +69,7 @@ const Gallery = () => {
                 return (
                   <div 
                     key={img._id}
-                    className={`${spanClass} relative group cursor-pointer overflow-hidden rounded-sm bg-white/5 border border-white/5 shadow-md transition-all duration-500 hover:shadow-xl`}
+                    className={`${spanClass} relative group cursor-pointer overflow-hidden rounded-sm bg-[var(--color-alt-bg)] border border-[var(--color-border)]/30 shadow-md transition-all duration-500 hover:shadow-xl`}
                     onClick={() => setSelectedImage(img.imageUrl)}
                   >
                     <img 
@@ -102,11 +102,11 @@ const Gallery = () => {
           <img 
             src={selectedImage} 
             alt="Expanded Gallery" 
-            className="max-w-full max-h-[90vh] object-contain cursor-default border border-white/10 shadow-2xl"
+            className="max-w-full max-h-[90vh] object-contain cursor-default border border-[var(--color-border)]/50 shadow-2xl"
             onClick={(e) => e.stopPropagation()} 
           />
           <button 
-            className="absolute top-6 right-6 text-white/70 hover:text-white transition-colors p-2"
+            className="absolute top-6 right-6 text-[var(--color-text-main)]/70 hover:text-[var(--color-text-main)] transition-colors p-2"
             onClick={() => setSelectedImage(null)}
           >
             <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -117,15 +117,15 @@ const Gallery = () => {
       )}
 
       {/* Footer / CTA Section */}
-      <section className="py-24 px-4 bg-[var(--color-primary-dark)] text-center border-t border-white/10">
+      <section className="py-24 px-4 bg-[var(--color-main-bg)] text-center border-t border-[var(--color-border)]/50">
         <div className="max-w-4xl mx-auto">
           <span className="text-[var(--color-gold)] text-xs uppercase tracking-[0.4em] font-bold mb-6 block">
             Experience the Craft
           </span>
-          <h2 className="text-4xl md:text-5xl font-serif font-light text-white mb-6">
+          <h2 className="text-4xl md:text-5xl font-serif font-light text-[var(--color-text-main)] mb-6">
             Curated Elegance
           </h2>
-          <p className="text-gray-400 font-light text-sm md:text-base max-w-2xl mx-auto mb-10 leading-relaxed">
+          <p className="text-[var(--color-text-secondary)] font-light text-sm md:text-base max-w-2xl mx-auto mb-10 leading-relaxed">
             Every piece tells a story of meticulous craftsmanship and timeless design. Discover the full extent of our artistry by exploring our exclusive collections or booking a personalized styling consultation.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">

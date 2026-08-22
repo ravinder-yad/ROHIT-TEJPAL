@@ -11,7 +11,7 @@ const slides = [
     description: 'Discover refined Indian ethnic wear crafted with distinctive prints and thoughtful details.',
     buttonText: 'EXPLORE COLLECTION',
     link: '/collections',
-    bgColor: 'bg-[var(--color-primary-dark)]'
+    bgColor: 'bg-[var(--color-main-bg)]'
   },
   {
     id: 2,
@@ -21,7 +21,7 @@ const slides = [
     description: 'Elevate your wardrobe with our meticulously designed floral and geometric prints.',
     buttonText: 'VIEW COLLECTION',
     link: '/products',
-    bgColor: 'bg-[var(--color-primary-dark)]'
+    bgColor: 'bg-[var(--color-main-bg)]'
   },
   {
     id: 3,
@@ -31,7 +31,7 @@ const slides = [
     description: 'Experience the perfect blend of modern silhouettes and traditional Indian craftsmanship.',
     buttonText: 'DISCOVER MORE',
     link: '/about',
-    bgColor: 'bg-[var(--color-primary-dark)]'
+    bgColor: 'bg-[var(--color-main-bg)]'
   }
 ];
 
@@ -76,7 +76,7 @@ const HeroSlider = () => {
                   {slide.subtitle}
                 </p>
                 
-                <h1 className={`text-white text-4xl md:text-5xl lg:text-[4.5rem] leading-[1.1] font-serif font-medium mb-6 transform transition-all duration-[1200ms] delay-500 ${
+                <h1 className={`text-[var(--color-text-main)] text-4xl md:text-5xl lg:text-[4.5rem] leading-[1.1] font-serif font-medium mb-6 transform transition-all duration-[1200ms] delay-500 ${
                   isActive ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
                 }`}>
                   {slide.title.split('\n').map((line, i) => (
@@ -85,7 +85,7 @@ const HeroSlider = () => {
                 </h1>
 
                 {slide.description && (
-                  <p className={`text-gray-300 text-sm md:text-base leading-relaxed mb-10 max-w-[400px] transform transition-all duration-[1200ms] delay-700 ${
+                  <p className={`text-[var(--color-text-secondary)] text-sm md:text-base leading-relaxed mb-10 max-w-[400px] transform transition-all duration-[1200ms] delay-700 ${
                     isActive ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
                   }`}>
                     {slide.description}
@@ -123,14 +123,14 @@ const HeroSlider = () => {
       <div className="absolute bottom-8 right-6 md:right-12 z-30 flex items-center gap-4">
         <button 
           onClick={prevSlide}
-          className="p-3 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 text-white transition-colors shadow-sm"
+          className="p-3 rounded-full bg-[var(--color-alt-bg)] hover:bg-[var(--color-border)]/30 border border-[var(--color-border)]/50 text-[var(--color-text-main)] transition-colors shadow-sm"
           aria-label="Previous slide"
         >
           <FiChevronLeft className="w-5 h-5" />
         </button>
         <button 
           onClick={nextSlide}
-          className="p-3 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 text-white transition-colors shadow-sm"
+          className="p-3 rounded-full bg-[var(--color-alt-bg)] hover:bg-[var(--color-border)]/30 border border-[var(--color-border)]/50 text-[var(--color-text-main)] transition-colors shadow-sm"
           aria-label="Next slide"
         >
           <FiChevronRight className="w-5 h-5" />
@@ -139,9 +139,9 @@ const HeroSlider = () => {
 
       {/* Pagination - Bottom Left */}
       <div className="absolute bottom-8 left-6 md:left-12 lg:left-24 z-30 flex items-center gap-4">
-        <div className="flex gap-2 items-center text-xs font-medium tracking-[0.1em] text-white">
+        <div className="flex gap-2 items-center text-xs font-medium tracking-[0.1em] text-[var(--color-text-main)]">
           <span>{String(currentSlide + 1).padStart(2, '0')}</span>
-          <span className="w-6 h-[1px] bg-white/50"></span>
+          <span className="w-6 h-[1px] bg-[var(--color-alt-bg)]0"></span>
           <span className="opacity-50">{String(slides.length).padStart(2, '0')}</span>
         </div>
       </div>

@@ -3,11 +3,11 @@ import { Link } from 'react-router-dom';
 
 const TermsConditions = () => {
   return (
-    <div className="bg-[var(--color-primary-dark)] min-h-screen pt-32 pb-24 text-white">
-      <div className="max-w-4xl mx-auto px-4 md:px-8 border border-white/10 p-8 md:p-12">
+    <div className="bg-[var(--color-main-bg)] min-h-screen pt-32 pb-24 text-[var(--color-text-main)]">
+      <div className="max-w-4xl mx-auto px-4 md:px-8 border border-[var(--color-border)]/50 p-8 md:p-12">
         <h1 className="text-3xl md:text-5xl font-serif text-[var(--color-gold)] mb-8 text-center tracking-widest uppercase">Terms & Conditions</h1>
         
-        <div className="prose prose-lg max-w-none text-gray-300 space-y-6 font-light">
+        <div className="prose prose-lg max-w-none text-[var(--color-text-secondary)] space-y-6 font-light">
           <p className="text-center italic mb-12">Last updated: {new Date().toLocaleDateString()}</p>
           
           <h2 className="text-2xl font-serif text-[var(--color-gold)] mt-12 mb-6">1. Agreement to Terms</h2>
@@ -47,11 +47,11 @@ const TermsConditions = () => {
           <h2 className="text-2xl font-serif text-[var(--color-gold)] mt-12 mb-6">6. Contact Information</h2>
           <p>
             Questions about the Terms and Conditions should be sent to us at: <br/>
-            Email: <a href="mailto:tejpalrohit4@gmail.com" className="text-[var(--color-gold)] hover:text-white transition-colors">tejpalrohit4@gmail.com</a>
+            Email: <a href="mailto:tejpalrohit4@gmail.com" className="text-[var(--color-gold)] hover:text-[var(--color-text-main)] transition-colors">tejpalrohit4@gmail.com</a>
           </p>
           
-          <div className="mt-16 text-center pt-8 border-t border-white/10">
-            <Link to="/" className="inline-block px-8 py-3 bg-white/5 border border-white/20 text-white text-[11px] tracking-[0.2em] uppercase hover:bg-white hover:text-[var(--color-primary-dark)] transition-colors duration-300">
+          <div className="mt-16 text-center pt-8 border-t border-[var(--color-border)]/50">
+            <Link to="/" className="inline-block px-8 py-3 bg-[var(--color-alt-bg)] border border-[var(--color-border)]/50 text-[var(--color-text-main)] text-[11px] tracking-[0.2em] uppercase hover:bg-white hover:text-[var(--color-main-bg)] transition-colors duration-300">
               Return to Home
             </Link>
           </div>

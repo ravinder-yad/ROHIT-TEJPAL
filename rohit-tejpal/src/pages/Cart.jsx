@@ -33,7 +33,7 @@ const Cart = () => {
   };
 
   return (
-    <div className="bg-[var(--color-primary-dark)] min-h-screen text-white font-sans pt-32 pb-24">
+    <div className="bg-[var(--color-main-bg)] min-h-screen text-[var(--color-text-main)] font-sans pt-32 pb-24">
       <div className="max-w-7xl mx-auto px-4 md:px-8">
         
         {/* Header */}
@@ -51,7 +51,7 @@ const Cart = () => {
             
             {/* Cart Items List */}
             <div className="lg:col-span-8 space-y-8">
-              <div className="hidden md:grid grid-cols-12 gap-4 pb-4 border-b border-white/10 text-[10px] uppercase tracking-[0.2em] font-bold text-gray-400">
+              <div className="hidden md:grid grid-cols-12 gap-4 pb-4 border-b border-[var(--color-border)]/50 text-[10px] uppercase tracking-[0.2em] font-bold text-[var(--color-text-secondary)]">
                 <div className="col-span-6">Product</div>
                 <div className="col-span-2 text-center">Price</div>
                 <div className="col-span-2 text-center">Quantity</div>
@@ -59,11 +59,11 @@ const Cart = () => {
               </div>
 
               {cartItems.map((item) => (
-                <div key={item.id} className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-4 items-center py-6 border-b border-white/5 relative group">
+                <div key={item.id} className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-4 items-center py-6 border-b border-[var(--color-border)]/30 relative group">
                   
                   {/* Product Details */}
                   <div className="col-span-1 md:col-span-6 flex gap-6">
-                    <div className="w-24 md:w-32 aspect-[3/4] bg-white/5 overflow-hidden flex-shrink-0 border border-white/10">
+                    <div className="w-24 md:w-32 aspect-[3/4] bg-[var(--color-alt-bg)] overflow-hidden flex-shrink-0 border border-[var(--color-border)]/50">
                       <Link to={`/products/${item.category.toLowerCase().replace(/ /g, '-')}/${item.id}`}>
                         <img 
                           src={item.image || '/images/products/product_1.jpg'} 
@@ -77,15 +77,15 @@ const Cart = () => {
                         {item.category}
                       </span>
                       <Link to={`/products/${item.category.toLowerCase().replace(/ /g, '-')}/${item.id}`}>
-                        <h3 className="text-base md:text-lg font-serif font-light text-white hover:text-[var(--color-gold)] transition-colors mb-2">
+                        <h3 className="text-base md:text-lg font-serif font-light text-[var(--color-text-main)] hover:text-[var(--color-gold)] transition-colors mb-2">
                           {item.name}
                         </h3>
                       </Link>
-                      <p className="text-gray-400 text-xs mb-4">Size: <span className="text-white">{item.size}</span></p>
+                      <p className="text-[var(--color-text-secondary)] text-xs mb-4">Size: <span className="text-[var(--color-text-main)]">{item.size}</span></p>
                       
                       <button 
                         onClick={() => removeFromCart(item.id, item.size)}
-                        className="text-gray-500 text-xs uppercase tracking-widest flex items-center gap-2 hover:text-red-400 transition-colors w-fit"
+                        className="text-[var(--color-text-secondary)] text-xs uppercase tracking-widest flex items-center gap-2 hover:text-red-400 transition-colors w-fit"
                       >
                         <FiTrash2 className="w-3.5 h-3.5" /> Remove
                       </button>
@@ -93,23 +93,23 @@ const Cart = () => {
                   </div>
 
                   {/* Price (Desktop) */}
-                  <div className="hidden md:block col-span-2 text-center text-gray-300 font-light text-sm">
+                  <div className="hidden md:block col-span-2 text-center text-[var(--color-text-secondary)] font-light text-sm">
                     ₹{item.price.toLocaleString('en-IN')}
                   </div>
 
                   {/* Quantity */}
                   <div className="col-span-1 md:col-span-2 flex items-center md:justify-center">
-                    <div className="flex items-center border border-white/20 bg-white/5">
+                    <div className="flex items-center border border-[var(--color-border)]/50 bg-[var(--color-alt-bg)]">
                       <button 
                         onClick={() => updateQuantity(item.id, item.size, item.quantity - 1)}
-                        className="p-3 text-gray-400 hover:text-white transition-colors"
+                        className="p-3 text-[var(--color-text-secondary)] hover:text-[var(--color-text-main)] transition-colors"
                       >
                         <FiMinus className="w-3 h-3" />
                       </button>
                       <span className="w-8 text-center text-sm font-medium">{item.quantity}</span>
                       <button 
                         onClick={() => updateQuantity(item.id, item.size, item.quantity + 1)}
-                        className="p-3 text-gray-400 hover:text-white transition-colors"
+                        className="p-3 text-[var(--color-text-secondary)] hover:text-[var(--color-text-main)] transition-colors"
                       >
                         <FiPlus className="w-3 h-3" />
                       </button>
@@ -117,8 +117,8 @@ const Cart = () => {
                   </div>
 
                   {/* Price (Mobile) & Total (Desktop) */}
-                  <div className="col-span-1 md:col-span-2 flex justify-between md:block md:text-right text-white font-medium">
-                    <span className="md:hidden text-gray-400 text-sm">Total:</span>
+                  <div className="col-span-1 md:col-span-2 flex justify-between md:block md:text-right text-[var(--color-text-main)] font-medium">
+                    <span className="md:hidden text-[var(--color-text-secondary)] text-sm">Total:</span>
                     ₹{(item.price * item.quantity).toLocaleString('en-IN')}
                   </div>
                 </div>
@@ -127,19 +127,19 @@ const Cart = () => {
 
             {/* Order Summary */}
             <div className="lg:col-span-4">
-              <div className="bg-white/[0.02] border border-white/10 p-8 md:p-10 sticky top-32">
-                <h3 className="text-xl font-serif font-light border-b border-white/10 pb-6 mb-6">Order Summary</h3>
+              <div className="bg-white/[0.02] border border-[var(--color-border)]/50 p-8 md:p-10 sticky top-32">
+                <h3 className="text-xl font-serif font-light border-b border-[var(--color-border)]/50 pb-6 mb-6">Order Summary</h3>
                 
-                <div className="space-y-4 text-sm font-light mb-6 border-b border-white/10 pb-6">
-                  <div className="flex justify-between text-gray-300">
+                <div className="space-y-4 text-sm font-light mb-6 border-b border-[var(--color-border)]/50 pb-6">
+                  <div className="flex justify-between text-[var(--color-text-secondary)]">
                     <span>Subtotal</span>
                     <span>₹{subtotal.toLocaleString('en-IN')}</span>
                   </div>
-                  <div className="flex justify-between text-gray-300">
+                  <div className="flex justify-between text-[var(--color-text-secondary)]">
                     <span>Shipping</span>
                     <span>₹{shipping.toLocaleString('en-IN')}</span>
                   </div>
-                  <p className="text-[10px] text-gray-500 uppercase tracking-widest mt-2">* Taxes calculated at checkout</p>
+                  <p className="text-[10px] text-[var(--color-text-secondary)] uppercase tracking-widest mt-2">* Taxes calculated at checkout</p>
                 </div>
 
                 <div className="flex justify-between items-end mb-8">
@@ -156,7 +156,7 @@ const Cart = () => {
                 </AnimatedButton>
                 
                 <div className="mt-6 flex flex-col gap-4 text-center">
-                  <Link to="/collections" className="text-[10px] uppercase tracking-widest text-gray-400 hover:text-white transition-colors underline underline-offset-4">
+                  <Link to="/collections" className="text-[10px] uppercase tracking-widest text-[var(--color-text-secondary)] hover:text-[var(--color-text-main)] transition-colors underline underline-offset-4">
                     Continue Shopping
                   </Link>
                 </div>
@@ -165,12 +165,12 @@ const Cart = () => {
 
           </div>
         ) : (
-          <div className="flex flex-col items-center justify-center py-20 text-center border border-white/10 bg-white/[0.02] max-w-4xl mx-auto">
-            <div className="w-20 h-20 rounded-full bg-white/5 border border-white/10 flex items-center justify-center mb-8">
-              <FiShoppingBag className="w-8 h-8 text-gray-500" />
+          <div className="flex flex-col items-center justify-center py-20 text-center border border-[var(--color-border)]/50 bg-white/[0.02] max-w-4xl mx-auto">
+            <div className="w-20 h-20 rounded-full bg-[var(--color-alt-bg)] border border-[var(--color-border)]/50 flex items-center justify-center mb-8">
+              <FiShoppingBag className="w-8 h-8 text-[var(--color-text-secondary)]" />
             </div>
             <h2 className="text-2xl font-serif font-light mb-4">Your bag is empty</h2>
-            <p className="text-gray-400 text-sm mb-8 max-w-md mx-auto">
+            <p className="text-[var(--color-text-secondary)] text-sm mb-8 max-w-md mx-auto">
               Looks like you haven't added anything to your bag yet. Let's change that.
             </p>
             <AnimatedButton to="/collections" theme="gold">

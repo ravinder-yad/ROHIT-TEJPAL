@@ -25,7 +25,7 @@ const features = [
 
 const WhyRohitTejpal = () => {
   return (
-    <section className="py-24 md:py-32 bg-[var(--color-primary-dark)] border-t border-white/5">
+    <section className="py-24 md:py-32 bg-[var(--color-main-bg)] border-t border-[var(--color-border)]/30">
       <div className="container-max px-4 md:px-8">
         
         {/* Header */}
@@ -37,7 +37,7 @@ const WhyRohitTejpal = () => {
             </span>
             <span className="w-12 h-[1px] bg-[var(--color-gold)] opacity-40"></span>
           </div>
-          <h2 className="text-white text-3xl md:text-4xl lg:text-5xl font-serif font-light tracking-wide">
+          <h2 className="text-[var(--color-text-main)] text-3xl md:text-4xl lg:text-5xl font-serif font-light tracking-wide">
             WHY <span className="italic text-[var(--color-gold)] font-medium">ROHIT TEJPAL</span>
           </h2>
         </div>
@@ -47,15 +47,15 @@ const WhyRohitTejpal = () => {
           {features.map((feature, index) => (
             <div key={index} className="flex flex-col items-center text-center group cursor-default">
               {/* Floating Icon Container */}
-              <div className="w-20 h-20 md:w-24 md:h-24 rounded-full bg-white/5 flex items-center justify-center mb-8 transform transition-all duration-500 group-hover:-translate-y-3 group-hover:shadow-[0_15px_40px_rgba(182,154,97,0.15)] border border-white/10 backdrop-blur-sm">
+              <div className="w-20 h-20 md:w-24 md:h-24 rounded-full bg-[var(--color-alt-bg)] flex items-center justify-center mb-8 transform transition-all duration-500 group-hover:-translate-y-3 group-hover:shadow-[0_15px_40px_rgba(182,154,97,0.15)] border border-[var(--color-border)]/50 backdrop-blur-sm">
                  {feature.icon}
               </div>
               
               {/* Text Content */}
-              <h3 className="text-white text-[12px] md:text-[13px] font-bold tracking-[0.2em] uppercase mb-4">
+              <h3 className="text-[var(--color-text-main)] text-[12px] md:text-[13px] font-bold tracking-[0.2em] uppercase mb-4">
                 {feature.title}
               </h3>
-              <p className="text-gray-300 text-[13px] md:text-sm font-light leading-[1.8] max-w-[280px]">
+              <p className="text-[var(--color-text-secondary)] text-[13px] md:text-sm font-light leading-[1.8] max-w-[280px]">
                 {feature.description}
               </p>
             </div>

@@ -4,9 +4,9 @@ import AnimatedButton from '../ui/AnimatedButton';
 
 const BrandIntroduction = () => {
   return (
-    <section className="py-24 md:py-32 bg-[var(--color-primary-dark)] relative overflow-hidden">
+    <section className="py-24 md:py-32 bg-[var(--color-main-bg)] relative overflow-hidden">
       {/* Subtle background monogram/watermark */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-[0.03] text-[20vw] font-serif tracking-tighter pointer-events-none whitespace-nowrap text-white">
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-[0.03] text-[20vw] font-serif tracking-tighter pointer-events-none whitespace-nowrap text-[var(--color-text-main)]">
         R T
       </div>
 
@@ -25,13 +25,13 @@ const BrandIntroduction = () => {
         </span>
 
         {/* Main large heading */}
-        <h2 className="text-white text-4xl md:text-5xl lg:text-[4rem] leading-tight font-serif font-light mb-10 tracking-wide max-w-[900px]">
+        <h2 className="text-[var(--color-text-main)] text-4xl md:text-5xl lg:text-[4rem] leading-tight font-serif font-light mb-10 tracking-wide max-w-[900px]">
           WHERE CRAFT MEETS <br className="hidden md:block" />
           <span className="italic text-[var(--color-gold)] font-medium">CHARACTER</span>
         </h2>
 
         {/* Description text */}
-        <p className="text-gray-300 text-sm md:text-base lg:text-lg leading-[2] font-light max-w-[650px] mb-14">
+        <p className="text-[var(--color-text-secondary)] text-sm md:text-base lg:text-lg leading-[2] font-light max-w-[650px] mb-14">
           Rooted in Indian aesthetics and inspired by contemporary fashion, Rohit Tejpal creates distinctive garments with meticulous attention to print, fabric, and finish.
         </p>
 
