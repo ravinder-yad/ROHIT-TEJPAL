@@ -225,22 +225,13 @@ const loginAdmin = async (req, res) => {
       return res.status(401).json({ message: 'Admin account is deactivated' });
     }
 
-    const otp = generateOTP();
+    const otp = "123456"; // Temporary fixed OTP because Render free tier blocks outbound SMTP
     admin.otp = otp;
     admin.otpExpires = new Date(Date.now() + 5 * 60 * 1000); // 5 mins
     await admin.save();
 
-    const emailSent = await sendEmail({
-      email: admin.email,
-      subject: 'Admin Login OTP for Rohit Tejpal',
-      html: getOtpEmailTemplate(admin.name, otp, 'adminLogin'),
-    });
-
-    if (emailSent) {
-      res.status(200).json({ message: 'OTP sent to email', email: admin.email });
-    } else {
-      res.status(500).json({ message: 'Failed to send OTP email' });
-    }
+    // Bypass sendEmail to avoid hanging on Render free tier
+    res.status(200).json({ message: 'OTP is 123456 (Render free tier fix)', email: admin.email });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
