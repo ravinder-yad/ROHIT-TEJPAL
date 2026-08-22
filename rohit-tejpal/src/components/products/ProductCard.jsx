@@ -90,7 +90,7 @@ const ProductCard = ({ product }) => {
             theme="gold"
             fullWidth={true}
             icon={false}
-            className="flex-1 bg-[var(--color-main-bg)]/90 backdrop-blur-md !border-none text-[var(--color-text-main)] text-[10px] sm:text-xs"
+            className="flex-1 bg-[var(--color-main-bg)]/90 backdrop-blur-md border border-[var(--color-border)]/50 text-[var(--color-text-main)] text-[10px] sm:text-xs hover:bg-[var(--color-gold)] hover:text-[var(--color-main-bg)] hover:border-[var(--color-gold)] transition-colors"
           >
             <FiShoppingBag className="w-4 h-4" />
             ADD TO BAG
@@ -100,7 +100,7 @@ const ProductCard = ({ product }) => {
             theme="primary"
             fullWidth={true}
             icon={false}
-            className="flex-1 bg-[#25D366]/90 backdrop-blur-md !border-none text-[var(--color-text-main)] text-[10px] sm:text-xs hover:bg-[#25D366]"
+            className="flex-1 bg-[#25D366]/90 backdrop-blur-md border border-transparent text-[var(--color-main-bg)] text-[10px] sm:text-xs hover:bg-[#25D366] transition-colors"
           >
             <FaWhatsapp className="w-4 h-4" />
             WHATSAPP

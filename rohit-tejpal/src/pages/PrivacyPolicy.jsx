@@ -52,7 +52,7 @@ const PrivacyPolicy = () => {
           </p>
           
           <div className="mt-16 text-center pt-8 border-t border-[var(--color-border)]/50">
-            <Link to="/" className="inline-block px-8 py-3 bg-[var(--color-alt-bg)] border border-[var(--color-border)]/50 text-[var(--color-text-main)] text-[11px] tracking-[0.2em] uppercase hover:bg-white hover:text-[var(--color-main-bg)] transition-colors duration-300">
+            <Link to="/" className="inline-block px-8 py-3 bg-[var(--color-alt-bg)] border border-[var(--color-border)]/50 text-[var(--color-text-main)] text-[11px] tracking-[0.2em] uppercase hover:bg-[var(--color-text-main)] hover:text-[var(--color-main-bg)] hover:border-[var(--color-text-main)] transition-colors duration-300">
               Return to Home
             </Link>
           </div>

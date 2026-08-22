@@ -67,7 +67,7 @@ const ShopByCollection = () => {
                 
                 <Link 
                   to="/products"
-                  className="inline-flex items-center gap-3 px-8 py-3 border border-[var(--color-border)]/30 text-[var(--color-text-main)] text-[11px] font-medium tracking-[0.2em] uppercase hover:bg-white hover:text-[var(--color-main-bg)] transition-colors duration-300"
+                  className="inline-flex items-center gap-3 px-8 py-3 border border-[var(--color-text-main)]/50 text-[var(--color-text-main)] text-[11px] font-medium tracking-[0.2em] uppercase hover:bg-[var(--color-text-main)] hover:border-[var(--color-text-main)] hover:text-[var(--color-main-bg)] transition-colors duration-300"
                 >
                   <span>SHOP NOW</span>
                   <FiArrowRight className="w-4 h-4" />

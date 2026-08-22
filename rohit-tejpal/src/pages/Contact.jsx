@@ -362,7 +362,7 @@ const Contact = () => {
             href="https://instagram.com" 
             target="_blank" 
             rel="noopener noreferrer"
-            className="relative z-10 flex items-center justify-center gap-4 px-10 py-4 bg-transparent border border-[var(--color-border)]/50 text-[var(--color-text-main)] hover:bg-white hover:text-[var(--color-main-bg)] hover:border-[var(--color-border)] transition-all duration-500 rounded-full group/btn"
+            className="relative z-10 flex items-center justify-center gap-4 px-10 py-4 bg-transparent border border-[var(--color-border)]/50 text-[var(--color-text-main)] hover:bg-[var(--color-text-main)] hover:text-[var(--color-main-bg)] hover:border-[var(--color-text-main)] hover:border-[var(--color-border)] transition-all duration-500 rounded-full group/btn"
           >
             <FiInstagram className="w-5 h-5" />
             <span className="text-xs font-bold uppercase tracking-[0.2em]">Join Us On Instagram</span>

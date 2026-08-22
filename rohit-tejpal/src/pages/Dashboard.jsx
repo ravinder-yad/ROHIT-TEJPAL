@@ -330,7 +330,7 @@ const DashboardHome = ({ user }) => {
           <p className="text-sm text-[var(--color-text-secondary)] mb-8 relative z-10 italic">You have no active orders.</p>
         )}
         
-        <Link to="/dashboard/orders" className="w-full bg-[var(--color-gold)] hover:bg-white hover:text-[var(--color-main-bg)] text-[var(--color-main-bg)] text-xs uppercase tracking-[0.2em] font-bold py-3.5 px-6 rounded-lg transition-colors relative z-10 shadow-lg">
+        <Link to="/dashboard/orders" className="w-full bg-[var(--color-gold)] hover:bg-[var(--color-text-main)] hover:text-[var(--color-main-bg)] hover:border-[var(--color-text-main)] text-[var(--color-main-bg)] text-xs uppercase tracking-[0.2em] font-bold py-3.5 px-6 rounded-lg transition-colors relative z-10 shadow-lg">
           View All Orders ({totalOrders})
         </Link>
       </div>

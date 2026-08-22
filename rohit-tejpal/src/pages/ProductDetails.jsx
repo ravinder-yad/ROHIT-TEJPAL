@@ -150,7 +150,7 @@ const ProductDetails = () => {
                     navigate('/dashboard/cart');
                   }}
                   disabled={product.inStock === false}
-                  className="flex-1 bg-white border border-[var(--color-border)] text-[var(--color-main-bg)] text-xs font-bold uppercase tracking-widest py-4 px-8 rounded-sm hover:bg-transparent hover:text-[var(--color-text-main)] hover:border-[var(--color-border)] transition-colors duration-300 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="flex-1 bg-[var(--color-text-main)] border border-[var(--color-text-main)] text-[var(--color-main-bg)] text-xs font-bold uppercase tracking-widest py-4 px-8 rounded-sm hover:bg-transparent hover:text-[var(--color-text-main)] hover:border-[var(--color-text-main)] transition-colors duration-300 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   Buy Now
                 </button>
