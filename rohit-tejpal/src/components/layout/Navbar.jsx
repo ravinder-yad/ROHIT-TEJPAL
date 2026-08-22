@@ -126,7 +126,7 @@ const Navbar = () => {
             </button>
             <Link to="/" className="flex-shrink-0 flex items-center text-white hover:text-[var(--color-gold)] transition-colors duration-300 z-50 h-full">
               <BrandLogoImage 
-                className={`transition-all duration-300 object-contain transform origin-left ${
+                className={`brightness-0 invert transition-all duration-300 object-contain transform origin-left ${
                   isScrolled 
                     ? 'h-[45px] scale-110' 
                     : 'h-[55px] scale-125'
@@ -139,7 +139,7 @@ const Navbar = () => {
           <div className="hidden lg:flex items-center h-full flex-1">
             <Link to="/" className="flex-shrink-0 flex items-center justify-center text-white hover:text-[var(--color-gold)] transition-colors duration-300 z-50 h-full">
               <BrandLogoImage 
-                className={`transition-all duration-300 object-contain px-3 transform scale-[1.3] origin-center ${
+                className={`brightness-0 invert transition-all duration-300 object-contain px-3 transform scale-[1.3] origin-center ${
                   isScrolled 
                     ? 'h-[60px] md:h-[70px] w-auto' 
                     : 'h-[70px] md:h-[95px] w-auto'

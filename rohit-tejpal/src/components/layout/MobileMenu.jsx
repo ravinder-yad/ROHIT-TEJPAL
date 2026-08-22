@@ -30,7 +30,7 @@ const MobileMenu = ({ isOpen, onClose, navigationData }) => {
         {/* Header */}
         <div className="flex items-center justify-between p-5 border-b border-white/10">
           <Link to="/" onClick={onClose} className="text-white">
-            <BrandLogoImage className="h-14 sm:h-16 w-auto" />
+            <BrandLogoImage className="brightness-0 invert h-14 sm:h-16 w-auto" />
           </Link>
           <button 
             onClick={onClose}
